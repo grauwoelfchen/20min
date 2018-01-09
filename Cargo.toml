@@ -1,0 +1,10 @@
+[package]
+name = "25min"
+version = "0.0.1"
+authors = ["Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
+description = "A command line working timer"
+repository = "https://gitlab.com/grauwoelfchen/25min"
+keywords = []
+license = "Apache-2.0"
+
+[dependencies]
