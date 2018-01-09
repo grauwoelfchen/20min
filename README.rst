@@ -19,7 +19,7 @@ License
 -------
 
 
-..
+.. code:: text
 
    Copyright 2018 Yasuhiro Asaka
 
