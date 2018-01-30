@@ -1,6 +1,9 @@
 20min
 =====
 
+.. image:: https://gitlab.com/grauwoelfchen/20min/badges/master/coverage.svg
+   :target: https://gitlab.com/grauwoelfchen/20min/commits/master
+
 .. raw:: html
 
    <del>News von jetzt!</del>
