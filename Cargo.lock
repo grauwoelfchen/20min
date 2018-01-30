@@ -1,4 +1,4 @@
-[root]
-name = "25min"
+[[package]]
+name = "20min"
 version = "0.0.1"
 

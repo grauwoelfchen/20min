@@ -1,7 +1,7 @@
 25min
 =====
 
-Gras von jetzt!
+~News von jetzt!~
 
 This is simple working timer.
 
