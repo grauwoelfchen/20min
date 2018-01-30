@@ -10,6 +10,9 @@ test:
     - cargo --version
   script:
     - cargo test
+  after_script:
+    - kcov --include-path src target/coverage target/debug/20min-*
+    - cat target/coverage/index.json
   except:
     - tags
 
