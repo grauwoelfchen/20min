@@ -5,7 +5,11 @@ stages:
 test:
   stage: test
   image: rust:latest
+  variables:
+    APT_CACHE_DIR: apt-cache
   before_script:
+    - mkdir -pv $APT_CACHE_DIR && apt-get -qq update
+    - apt-get -qq -o dir::cache::archives="$APT_CACHE_DIR" install -y kcov
     - rustc --version
     - cargo --version
   script:
@@ -13,6 +17,10 @@ test:
   after_script:
     - kcov --include-path src target/coverage target/debug/20min-*
     - cat target/coverage/index.json
+  cache:
+    untracked: true
+    path:
+      - apt-cache
   except:
     - tags
 
