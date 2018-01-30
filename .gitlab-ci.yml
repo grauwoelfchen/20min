@@ -1,0 +1,27 @@
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  image: rust:latest
+  before_script:
+    - rustc --version
+    - cargo --version
+  script:
+    - cargo test
+  except:
+    - tags
+
+build:
+  stage: build
+  image: rust:latest
+  before_script:
+    - rustc --version
+    - cargo --version
+  script:
+    - cargo build
+  cache:
+    untracked: true
+  only:
+    - tags
