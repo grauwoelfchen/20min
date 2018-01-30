@@ -19,7 +19,7 @@ test:
     - cat target/coverage/index.json
   cache:
     untracked: true
-    path:
+    paths:
       - apt-cache
   except:
     - tags
