@@ -1,7 +1,9 @@
-25min
+20min
 =====
 
-~News von jetzt!~
+.. raw:: html
+
+   <del>News von jetzt!</del>
 
 This is simple working timer.
 
