@@ -1,2 +1,4 @@
 /target
 /kcov
+
+.env.ci
