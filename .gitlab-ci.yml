@@ -6,12 +6,13 @@ test:
   stage: test
   image: rust:latest
   variables:
-    KCOV_DISCARD_CACHE: false
+    KCOV_DISCARD_CACHE: "false"
     APT_CACHE_DIR: apt-cache
   before_script:
     - mkdir -pv $APT_CACHE_DIR && apt-get -qq update
     - apt-get -qq -o dir::cache::archives="$APT_CACHE_DIR" install -y
       binutils-dev libcurl4-openssl-dev zlib1g-dev libdw-dev libiberty-dev
+      cmake
     - ./bin/build-kcov
     - rustc --version
     - cargo --version
