@@ -6,21 +6,27 @@ test:
   stage: test
   image: rust:latest
   variables:
+    KCOV_CACHE_BIN: kcov
     APT_CACHE_DIR: apt-cache
   before_script:
     - mkdir -pv $APT_CACHE_DIR && apt-get -qq update
-    - apt-get -qq -o dir::cache::archives="$APT_CACHE_DIR" install -y kcov
+    - apt-get -qq -o dir::cache::archives="$APT_CACHE_DIR" install -y
+      binutils-dev libcurl4-openssl-dev zlib1g-dev libdw-dev libiberty-dev
+    - curl -sLO https://github.com/SimonKagstrom/kcov/archive/v34.tar.gz
+    - tar zxvf v34.tar.gz
     - rustc --version
     - cargo --version
+    - ./kcov --version
   script:
     - cargo test
   after_script:
-    - kcov --include-path src --verify target/coverage target/debug/20min-*
+    - ./kcov --include-path src target/coverage target/debug/20min-*
     - cat target/coverage/index.json
   cache:
     untracked: true
     paths:
       - apt-cache
+      - kcov
   except:
     - tags
 
