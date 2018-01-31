@@ -15,7 +15,7 @@ test:
   script:
     - cargo test
   after_script:
-    - kcov --include-path src target/coverage target/debug/20min-*
+    - kcov --include-path src --verify target/coverage target/debug/20min-*
     - cat target/coverage/index.json
   cache:
     untracked: true
