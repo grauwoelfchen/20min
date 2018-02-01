@@ -7,6 +7,8 @@
 .. image:: https://gitlab.com/grauwoelfchen/20min/badges/master/coverage.svg
    :target: https://gitlab.com/grauwoelfchen/20min/commits/master
 
+|
+
 .. raw:: html
 
    <del>News von jetzt!</del>
@@ -15,6 +17,18 @@ This is simple working timer.
 
 
 Usage
+-----
+
+.. code:: zsh
+
+   % 20min
+   % 20min 900.0
+   % 20min 900.0 300.0
+   % 20min 900.0,300.0
+
+
+
+Build
 -----
 
 .. code:: zsh
