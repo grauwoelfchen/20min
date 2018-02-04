@@ -21,7 +21,7 @@ Usage
 
 .. code:: zsh
 
-   # (same as default) 900 secs work and 300 secs rest ;)
+   # 900 secs work and 300 secs rest (same as default)
    % 20min 15,5
        Working [==============================================================] 100%
       Finished work [unoptimized + progressbar] targes(+s) in 900 secs
