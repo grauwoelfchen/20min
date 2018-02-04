@@ -3,6 +3,9 @@ use std::str::FromStr;
 
 use config::Config;
 mod config;
+use ticker::tick;
+mod ticker;
+
 
 fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
     match s.find(separator) {
@@ -25,9 +28,15 @@ fn split_arg(s: &str) -> Option<Vec<String>> {
     }
 }
 
-fn main() {
-    let mut params = Vec::new();
+fn report(duration: u64) {
+    println!("{prefix:>prefix_width$} {info} target(s) in {duration} secs\r",
+             prefix="Finished",
+             prefix_width=12,
+             info="work [unoptimized + progressbar]",
+             duration=duration);
+}
 
+fn main() {
     let mut args: Vec<String> = std::env::args().skip(1).collect();
     if args.len() == 1 {
         // handle single string input like: 15,5
@@ -35,20 +44,21 @@ fn main() {
             args = v;
         }
     }
-    for arg in args {
-        // String -> &str
-        params.push(f64::from_str(&arg)
-            .expect("Error: Unknown argument"));
-    }
+    let c = Config::new(args);
 
-    if params.len() > 2 {
+    if c.params.len() > 2 {
         writeln!(std::io::stderr(),
                  "Usage: 20min n (working time) n (time for rest)").unwrap();
         std::process::exit(1);
     }
 
-    let (work_t, rest_t) = Config { params: params }.to_tuple();
-    println!("work_t {:.1}, rest_t {:.1}", work_t, rest_t);
+    let (work_t, rest_t) = c.to_tuple();
+
+    tick(work_t, "Working");
+    report(work_t);
+
+    tick(rest_t, "Resting");
+    report(rest_t);
 }
 
 #[cfg(test)]

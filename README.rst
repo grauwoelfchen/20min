@@ -21,10 +21,14 @@ Usage
 
 .. code:: zsh
 
-   % 20min
-   % 20min 900.0
-   % 20min 900.0 300.0
-   % 20min 900.0,300.0
+   # (same as default) 900 secs work and 300 secs rest ;)
+   % 20min 15,5
+       Working [==============================================================] 100%
+      Finished work [unoptimized + progressbar] targes(+s) in 900 secs
+       Resting [===================================================-----------] 80%
+
+   # 30 secs work and 600 secs rest ;)
+   % 20min 0.5 5
 
 
 
