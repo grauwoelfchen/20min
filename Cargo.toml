@@ -7,4 +7,8 @@ repository = "https://gitlab.com/grauwoelfchen/20min"
 keywords = []
 license = "Apache-2.0"
 
+[[bin]]
+name = "20min"
+path = "src/main.rs"
+
 [dependencies]
