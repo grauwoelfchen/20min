@@ -1,5 +1,5 @@
 Mon 05 Mar 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
-	* Update (local/ci) kcov to fix coverage ;)
+	* Update kcov (local/ci) installation to fix coverage (1.05% -> 95.5%)
 
 Tue 09 Jan 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Initial commit ;)
