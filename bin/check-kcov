@@ -1,0 +1,21 @@
+#!/bin/bash
+set -eu
+
+kcov_dir="kcov"
+kcov_bin="${kcov_dir}/bin/kcov"
+
+coverage_dir="target/coverage"
+target_dir="target/debug"
+
+# 20min/integration_test
+target_name="${1}"
+target_files=$(ls $target_dir/$target_name-* | grep -v '\.d$')
+echo $target_files
+
+for file in $target_files; do
+  $kcov_bin --include-pattern=/src \
+            --verify "$coverage_dir" "$file"
+done
+
+grep -oE 'covered":"([0-9]*\.[0-9]*|[0-9]*)"' "$coverage_dir"/index.json | \
+  grep -oE '[0-9]*\.[0-9]*|[0-9]*'

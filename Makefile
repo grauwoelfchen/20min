@@ -13,9 +13,7 @@ test:
 coverage:
 	./bin/build-kcov
 	cargo test
-	./kcov/bin/kcov --include-path src target/coverage target/debug/20min-*
-	grep -oE 'covered":"([0-9]*\.[0-9]*|[0-9]*)"' target/coverage/index.json | \
-		grep -oE '[0-9]*\.[0-9]*|[0-9]*'
+	./bin/check-kcov 20min
 .PHONY: coverage
 
 cov: | coverage
