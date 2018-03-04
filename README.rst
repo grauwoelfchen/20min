@@ -40,6 +40,15 @@ Build
    % cargo build --release
 
 
+Test
+-----
+
+See `rust-lang/cargo#1924`
+
+.. code:: zsh
+
+   % make cov
+
 
 License
 -------
