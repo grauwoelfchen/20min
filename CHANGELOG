@@ -1,2 +1,5 @@
+Mon 05 Mar 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Update (local/ci) kcov to fix coverage ;)
+
 Tue 09 Jan 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Initial commit ;)
