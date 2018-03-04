@@ -18,9 +18,8 @@ test:
     - cargo --version
     - ./kcov/bin/kcov --version
   script:
-    - cargo test
+    - make coverage
   after_script:
-    - ./kcov/bin/kcov --include-path src target/coverage target/debug/20min-*
     - cat target/coverage/index.json
   cache:
     untracked: true
