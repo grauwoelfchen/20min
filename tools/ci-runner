@@ -22,7 +22,7 @@ done < "${env_file}"
 
 # ci-runner <job>
 echo "${env_opts} ${job_name}" | \
-  xargs $dir_name/bin/gitlab-ci-multi-runner exec docker \
+  xargs $dir_name/tools/gitlab-ci-multi-runner exec docker \
   --cache-dir /cache \
   --docker-privileged \
   --docker-volumes $dir_name/tmp/_cache:/cache \
