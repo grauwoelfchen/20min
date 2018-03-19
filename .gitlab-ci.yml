@@ -30,7 +30,7 @@ test:
     - ./tools/build-kcov
     - rustc --version
     - cargo --version
-    - ./kcov/bin/kcov --version
+    - ./tools/kcov/bin/kcov --version
   script:
     - make coverage
   after_script:
@@ -39,7 +39,7 @@ test:
     untracked: true
     paths:
       - apt-cache
-      - kcov
+      - tools/kcov
   except:
     - tags
 
