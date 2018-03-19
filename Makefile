@@ -1,10 +1,9 @@
-build:
-	cargo build
-.PHONY: build
+format:
+	cargo fmt --all -- --write-mode=diff
+.PHONY: format
 
-clean:
-	cargo clean
-.PHONY: clean
+fmt: | format
+.PHONY: fmt
 
 test:
 	cargo test
@@ -18,6 +17,14 @@ coverage:
 
 cov: | coverage
 .PHONY: cov
+
+build:
+	cargo build
+.PHONY: build
+
+clean:
+	cargo clean
+.PHONY: clean
 
 .DEFAULT_GOAL = coverage
 default: coverage
