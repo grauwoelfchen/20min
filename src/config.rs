@@ -13,12 +13,10 @@ impl Config {
             let v: u64;
             // String -> u64
             if arg.contains('.') {
-                let f = f64::from_str(&arg)
-                    .expect(Config::PARSE_ERROR);
+                let f = f64::from_str(&arg).expect(Config::PARSE_ERROR);
                 v = (f * 60.0).round() as u64;
             } else {
-                v = u64::from_str(&arg)
-                    .expect(Config::PARSE_ERROR) * 60;
+                v = u64::from_str(&arg).expect(Config::PARSE_ERROR) * 60;
             }
             p.push(v);
         }
@@ -32,10 +30,10 @@ impl Config {
 
         let vec = self.params;
         match vec.len() {
-             0 => (work_t, rest_t),
-             1 => (vec[0], rest_t),
-             2 => (vec[0], vec[1]),
-             _ => panic!("Error: Too many values"),
+            0 => (work_t, rest_t),
+            1 => (vec[0], rest_t),
+            2 => (vec[0], vec[1]),
+            _ => panic!("Error: Too many values"),
         }
     }
 }
@@ -55,13 +53,19 @@ mod config_test {
         c = Config { params: vec![10] };
         assert_eq!((10, 300), c.to_tuple());
 
-        c = Config { params: vec![20, 30] };
+        c = Config {
+            params: vec![20, 30],
+        };
         assert_eq!((20, 30), c.to_tuple());
 
-        c = Config { params: vec![305, 45] };
+        c = Config {
+            params: vec![305, 45],
+        };
         assert_eq!((305, 45), c.to_tuple());
 
-        c = Config { params: vec![30, 40, 50] };
+        c = Config {
+            params: vec![30, 40, 50],
+        };
         let res = panic::catch_unwind(|| c.to_tuple());
         assert!(res.is_err());
     }

@@ -14,7 +14,8 @@ mod integration_test {
     fn test_run_with_invalid_work_t() {
         let output = Command::new("./target/debug/20min")
             .arg("foo")
-            .output().unwrap();
+            .output()
+            .unwrap();
         assert!(String::from_utf8_lossy(&output.stderr).contains("panicked"));
     }
 }
