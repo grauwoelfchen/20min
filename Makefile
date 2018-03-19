@@ -11,7 +11,8 @@ test:
 
 coverage:
 	./tools/build-kcov
-	cargo test
+	cargo build --tests
+	#./tools/check-kcov integration_test
 	./tools/check-kcov 20min
 .PHONY: coverage
 
