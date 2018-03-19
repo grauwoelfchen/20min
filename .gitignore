@@ -1,4 +1,5 @@
 /target
 /kcov
+/tools/gitlab-ci-multi-runner
 
 .env.ci

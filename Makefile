@@ -11,9 +11,9 @@ test:
 .PHONY: test
 
 coverage:
-	./bin/build-kcov
+	./tools/build-kcov
 	cargo test
-	./bin/check-kcov 20min
+	./tools/check-kcov 20min
 .PHONY: coverage
 
 cov: | coverage
