@@ -1,11 +1,11 @@
 #!/bin/bash
 set -eu
 
-kcov_dir="kcov"
+kcov_dir="$(dirname $(readlink -f "${0}"))/kcov"
 kcov_bin="${kcov_dir}/bin/kcov"
 
-coverage_dir="target/coverage"
-target_dir="target/debug"
+coverage_dir="$(pwd)/target/coverage"
+target_dir="$(pwd)/target/debug"
 
 # 20min/integration_test
 target_name="${1}"

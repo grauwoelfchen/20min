@@ -6,7 +6,7 @@ set -eu
 
 renew="${KCOV_DISCARD_CACHE:-false}"
 
-kcov_dir="kcov"
+kcov_dir="$(dirname $(readlink -f "${0}"))/kcov"
 kcov_bin="${kcov_dir}/bin/kcov"
 kcov_url="https://github.com/SimonKagstrom/kcov/archive"
 kcov_ver="v34"
