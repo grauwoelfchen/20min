@@ -1,3 +1,6 @@
+Mon 19 Mar 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Move scripts into tools
+
 Mon 05 Mar 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Update kcov (local/ci) installation to fix coverage
 	* Add a runner script for coverage
