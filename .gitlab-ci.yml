@@ -1,6 +1,20 @@
 stages:
+  - check
   - test
   - build
+
+check:
+  stage: check
+  image: rust:latest
+  before_script:
+    - rustup component add rustfmt-preview
+    - rustc --version
+    - cargo --version
+    - rustfmt --version
+  script:
+    - make format
+  except:
+    - tags
 
 test:
   stage: test
