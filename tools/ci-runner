@@ -7,7 +7,7 @@ env_file="${ENV_FILE:-.env.ci}"
 env_opts="";
 
 if [ -z "${job_name}" ]; then
-  echo "Please specifp job name in .gitlab-ci.yml"
+  echo "Please specify job name in .gitlab-ci.yml"
   exit 2
 fi
 
