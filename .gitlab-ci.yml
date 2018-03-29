@@ -74,4 +74,5 @@ pages:
     paths:
       - public
   only:
-    - master
+    # - master
+    - gitlab-pages
