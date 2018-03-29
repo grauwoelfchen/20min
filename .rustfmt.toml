@@ -1,0 +1,26 @@
+# https://github.com/rust-lang-nursery/rustfmt/blob/master/Configurations.md
+indent_style = "Block"
+
+max_width = 80
+tab_spaces = 2
+
+binop_separator = "Back"
+
+where_single_line = true
+format_strings = true
+
+match_block_trailing_comma = true
+force_multiline_blocks = true
+
+normalize_comments = true
+wrap_comments = true
+
+use_field_init_shorthand = true
+
+reorder_imported_names = false
+reorder_imports = false
+reorder_imports_in_group = false
+
+reorder_extern_crates = false
+reorder_extern_crates_in_group = false
+reorder_modules = false
