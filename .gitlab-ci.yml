@@ -52,7 +52,7 @@ build:
     - rustc --version
     - cargo --version
   script:
-    - cargo build
+    - make build
   cache:
     untracked: true
   only:
