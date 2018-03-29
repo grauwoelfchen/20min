@@ -60,7 +60,8 @@ build:
 
 pages:
   stage: pages
-  image: rust:latest
+  # image: rust:latest
+  image: rustlang/rust:nightly
   before_script:
     - rustc --version
     - cargo --version
