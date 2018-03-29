@@ -1,3 +1,8 @@
+Thu 30 Mar 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Add gitlab pages (documents)
+	* Add documents for main crate and functions
+	* Add .rustfmt.toml for style formatting
+
 Mon 19 Mar 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Add format target
 	* Move scripts into tools
