@@ -68,6 +68,7 @@ pages:
     - rustdoc --version
   script:
     - make doc
+    - mkdir public
     - cp -R target/doc/* public/
     - cd public/ && ln -s 20min/index.html .
   artifacts:
