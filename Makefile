@@ -19,6 +19,12 @@ coverage:
 cov: | coverage
 .PHONY: cov
 
+document:
+	cargo rustdoc -- --document-private-items -Z --display-warnings
+
+doc: | document
+.PHONY: doc
+
 build:
 	cargo build
 .PHONY: build
