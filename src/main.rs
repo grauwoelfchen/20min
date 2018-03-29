@@ -1,3 +1,11 @@
+//! A command line working timer `20min`.
+//!
+//! # Examples
+//!
+//! ```zsh
+//! % 20min 15,5
+//! % 20min 0.5 5
+//! ```
 use std::io::Write;
 use std::str::FromStr;
 
@@ -6,6 +14,21 @@ mod config;
 use ticker::tick;
 mod ticker;
 
+/// Create new pair using `Option`.
+///
+/// This is a private utility function to parse command line args from string
+/// into pair.
+///
+/// # Errors
+///
+/// This function will not return any errors, otherwise returns None.
+///
+/// # Examples
+///
+/// ```
+/// assert_eq!(None, parse_pair::<i32>("", ','));
+/// assert_eq!(Some("15", "5"), parse_pair::<i32>("15,5", ','));
+/// ```
 fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
   match s.find(separator) {
     None => None,
@@ -21,7 +44,17 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
   }
 }
 
-/// parse arg as string
+/// Parses an arg into Vec.
+///
+/// # Errors
+///
+/// This private function will not return any errors, otherwise returns None.
+///
+/// # Examples
+///
+/// ```
+/// assert_eq!(Some(vec!["10".to_string(), "".to_string()]), split_arg("10,"));
+/// ```
 fn split_arg(s: &str) -> Option<Vec<String>> {
   match parse_pair::<String>(&s, ',') {
     Some((w, r)) => Some(vec![w, r]),
