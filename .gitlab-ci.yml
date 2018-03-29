@@ -6,7 +6,8 @@ stages:
 
 check:
   stage: check
-  image: rust:latest
+  # image: rust:latest
+  image: rustlang/rust:nightly
   before_script:
     - rustup component add rustfmt-preview
     - rustc --version
