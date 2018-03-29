@@ -2,6 +2,7 @@ stages:
   - check
   - test
   - build
+  - pages
 
 check:
   stage: check
@@ -56,3 +57,24 @@ build:
     untracked: true
   only:
     - tags
+
+pages:
+  stage: pages
+  # image: rust:latest
+  image: rustlang/rust:nightly
+  before_script:
+    - rustc --version
+    - cargo --version
+    - rustdoc --version
+  script:
+    - make doc
+    - mkdir public
+    - cp -R target/doc/* public/
+    - cd public/ && ln -s 20min/index.html .
+  artifacts:
+    untracked: true
+    paths:
+      - public
+  only:
+    # - master
+    - gitlab-pages
