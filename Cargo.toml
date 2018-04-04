@@ -12,3 +12,4 @@ name = "20min"
 path = "src/main.rs"
 
 [dependencies]
+clippy = { version = "*", optional = true }

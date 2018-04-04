@@ -5,6 +5,10 @@ format: ## Check format without changes (alias: fmt)
 fmt: | format
 .PHONY: fmt
 
+lint: ## Check code style using clippy
+	cargo rustc --features clippy -- -Z no-trans -Z extra-plugins=clippy
+.PHONY: lint
+
 test: ## Run unit tests and integration tests
 	cargo test
 .PHONY: test
