@@ -35,15 +35,18 @@ Usage
 Build
 -----
 
+Check ``make help``
+
 .. code:: zsh
 
-   % cargo build --release
+   # debug build
+   % make build
 
 
 Test
 -----
 
-See `rust-lang/cargo#1924`
+See ``rust-lang/cargo#1924``
 
 .. code:: zsh
 
