@@ -28,6 +28,6 @@ pub fn tick(total: u64, prefix_text: &str) {
       thread::sleep(time::Duration::new(1, 0));
       progress(i, total, prefix_text);
     }
-    print!("\n");
+    println!();
   }
 }
