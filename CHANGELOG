@@ -1,5 +1,5 @@
 Wed 05 Apr 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
-	* Add `make lint` using clippy
+	* Add `make lint` using clippy (.clippy.toml)
 	* Add `make help`
 
 Thu 30 Mar 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
