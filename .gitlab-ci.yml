@@ -1,5 +1,6 @@
 stages:
   - check
+  - lint
   - test
   - build
   - pages
@@ -15,6 +16,20 @@ check:
     - rustfmt --version
   script:
     - make format
+  except:
+    - tags
+
+lint:
+  stage: lint
+  # image: rust:latest
+  image: rustlang/rust:nightly
+  before_script:
+    - rustc --version
+    - cargo --version
+    - cargo +nightly install clippy
+    - cargo clippy -- --version
+  script:
+    - make lint
   except:
     - tags
 
