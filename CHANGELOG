@@ -1,4 +1,5 @@
 Wed 05 Apr 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Make code more rust like one ;)
 	* Add `make lint` using clippy (.clippy.toml)
 	* Add `make help`
 
