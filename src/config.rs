@@ -10,25 +10,24 @@ impl Config {
   pub fn new(args: Vec<String>) -> Self {
     let mut p: Vec<u64> = Vec::new();
     for arg in args {
-      let v: u64;
       // String -> u64
-      if arg.contains('.') {
+      let v: u64 = if arg.contains('.') {
         let f = f64::from_str(&arg).expect(Config::PARSE_ERROR);
-        v = (f * 60.0).round() as u64;
+        (f * 60.0).round() as u64
       } else {
-        v = u64::from_str(&arg).expect(Config::PARSE_ERROR) * 60;
-      }
+        u64::from_str(&arg).expect(Config::PARSE_ERROR) * 60
+      };
       p.push(v);
     }
     Config { params: p }
   }
 
-  pub fn to_tuple(self) -> (u64, u64) {
+  pub fn to_tuple(&self) -> (u64, u64) {
     // defaults (seconds)
     let work_t = 15 * 60;
     let rest_t = 5 * 60;
 
-    let vec = self.params;
+    let vec = &self.params;
     match vec.len() {
       0 => (work_t, rest_t),
       1 => (vec[0], rest_t),
@@ -49,6 +48,7 @@ mod config_test {
 
     c = Config { params: vec![] };
     assert_eq!((900, 300), c.to_tuple());
+    assert_eq!(c.to_tuple(), c.to_tuple());
 
     c = Config {
       params: vec![10],
