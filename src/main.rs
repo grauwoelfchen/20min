@@ -6,7 +6,6 @@
 //! % 20min 15,5
 //! % 20min 0.5 5
 //! ```
-use std::io::Write;
 use std::str::FromStr;
 
 use config::Config;
@@ -56,7 +55,7 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
 /// assert_eq!(Some(vec!["10".to_string(), "".to_string()]), split_arg("10,"));
 /// ```
 fn split_arg(s: &str) -> Option<Vec<String>> {
-  match parse_pair::<String>(&s, ',') {
+  match parse_pair::<String>(s, ',') {
     Some((w, r)) => Some(vec![w, r]),
     None => None,
   }
@@ -83,10 +82,7 @@ fn main() {
   let c = Config::new(args);
 
   if c.params.len() > 2 {
-    writeln!(
-      std::io::stderr(),
-      "Usage: 20min n (working time) n (time for rest)"
-    ).unwrap();
+    eprintln!("Usage: 20min n (working time) n (time for rest)");
     std::process::exit(1);
   }
 
