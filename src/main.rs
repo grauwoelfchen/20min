@@ -62,11 +62,15 @@ fn split_arg(s: &str) -> Option<Vec<String>> {
 }
 
 fn report(duration: u64) {
+  let prefix = "Finished";
+  let prefix_width = 12;
+  let info = "work [unoptimized + progressbar]";
+
   println!(
     "{prefix:>prefix_width$} {info} target(s) in {duration} secs\r",
-    prefix = "Finished",
-    prefix_width = 12,
-    info = "work [unoptimized + progressbar]",
+    prefix = prefix,
+    prefix_width = prefix_width,
+    info = info,
     duration = duration
   );
 }

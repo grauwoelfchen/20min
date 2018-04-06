@@ -6,6 +6,7 @@ use std::{thread, time};
 
 pub fn progress(count: u64, total: u64, prefix_text: &str) {
   let bar_len = 62; // 80 - (12 + 6)
+  let text_width = 12;
   let filled_len = (bar_len * count) / total;
   let value = (100 * count) / total;
   let mut bar = "=".repeat(filled_len as usize);
@@ -14,8 +15,8 @@ pub fn progress(count: u64, total: u64, prefix_text: &str) {
   print!(
     "{text:>text_width$} [{bar}] {value}%\r",
     text = &prefix_text,
-    text_width = 12,
-    bar = &bar,
+    text_width = text_width,
+    bar = bar,
     value = value
   );
   io::stdout().flush().unwrap();
