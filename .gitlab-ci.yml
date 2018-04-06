@@ -8,7 +8,7 @@ stages:
 check:
   stage: check
   # image: rust:latest
-  image: rustlang/rust:nightly
+  image: grauwoelfchen/rust:nightly
   before_script:
     - rustup component add rustfmt-preview
     - rustc --version
@@ -22,7 +22,7 @@ check:
 lint:
   stage: lint
   # image: rust:latest
-  image: rustlang/rust:nightly
+  image: grauwoelfchen/rust:nightly
   before_script:
     - rustc --version
     - cargo --version
@@ -76,7 +76,7 @@ build:
 pages:
   stage: pages
   # image: rust:latest
-  image: rustlang/rust:nightly
+  image: grauwoelfchen/rust:nightly
   before_script:
     - rustc --version
     - cargo --version

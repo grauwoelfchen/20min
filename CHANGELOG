@@ -1,4 +1,5 @@
 Thu 06 Apr 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Update images on CI to grauwoelfchen/rust (gentoo)
 	* Fix print_literal (lint)
 
 Wed 05 Apr 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
