@@ -26,7 +26,7 @@ lint:
   before_script:
     - rustc --version
     - cargo --version
-    - cargo +nightly install clippy
+    - cargo install clippy
     - cargo clippy -- --version
   script:
     - make lint
