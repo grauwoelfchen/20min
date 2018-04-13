@@ -1,3 +1,6 @@
+Fri 13 Apr 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Update docker images on CI (Gentoo Linux)
+
 Thu 06 Apr 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Update images on CI to grauwoelfchen/rust (gentoo)
 	* Fix print_literal (lint)

@@ -7,13 +7,11 @@ stages:
 
 check:
   stage: check
-  # image: rust:latest
-  image: grauwoelfchen/rust:nightly
+  image: grauwoelfchen/rust-ci-tools:nightly
   before_script:
-    - rustup component add rustfmt-preview
     - rustc --version
     - cargo --version
-    - rustfmt --version
+    - cargo fmt --version
   script:
     - make format
   except:
@@ -21,13 +19,11 @@ check:
 
 lint:
   stage: lint
-  # image: rust:latest
-  image: grauwoelfchen/rust:nightly
+  image: grauwoelfchen/rust-ci-tools:nightly
   before_script:
     - rustc --version
     - cargo --version
-    - cargo install clippy
-    - cargo clippy -- --version
+    - cargo clippy --version
   script:
     - make lint
   except:
@@ -35,34 +31,21 @@ lint:
 
 test:
   stage: test
-  image: rust:latest
-  variables:
-    KCOV_DISCARD_CACHE: "false"
-    APT_CACHE_DIR: apt-cache
+  image: grauwoelfchen/rust-ci-tools:nightly
   before_script:
-    - mkdir -pv $APT_CACHE_DIR && apt-get -qq update
-    - apt-get -qq -o dir::cache::archives="$APT_CACHE_DIR" install -y
-      binutils-dev libcurl4-openssl-dev zlib1g-dev libdw-dev libiberty-dev
-      cmake
-    - ./tools/build-kcov
     - rustc --version
     - cargo --version
-    - ./tools/kcov/bin/kcov --version
+    - kcov --version
   script:
     - make coverage
   after_script:
     - cat target/coverage/index.json
-  cache:
-    untracked: true
-    paths:
-      - apt-cache
-      - tools/kcov
   except:
     - tags
 
 build:
   stage: build
-  image: rust:latest
+  image: grauwoelfchen/rust:latest
   before_script:
     - rustc --version
     - cargo --version
@@ -75,7 +58,6 @@ build:
 
 pages:
   stage: pages
-  # image: rust:latest
   image: grauwoelfchen/rust:nightly
   before_script:
     - rustc --version
