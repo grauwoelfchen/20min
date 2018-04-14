@@ -1,9 +1,18 @@
+///! A collection as module have functions that handle the progress.
 use std::io::{self, Write};
 use std::{thread, time};
 
 // TODO: termcolor support
 // https://github.com/rust-lang/cargo/blob/master/src/cargo/core/shell.rs
 
+/// Prints current progress as bar
+///
+/// # Examples
+///
+/// ```
+///  assert_eq!("", progress(10, 100, "Working"));
+/// ```
+///
 pub fn progress(count: u64, total: u64, prefix_text: &str) {
   let bar_len = 62; // 80 - (12 + 6)
   let text_width = 12;

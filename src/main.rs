@@ -61,6 +61,7 @@ fn split_arg(s: &str) -> Option<Vec<String>> {
   }
 }
 
+/// Outputs the formatted result.
 fn report(duration: u64) {
   let prefix = "Finished";
   let prefix_width = 12;
