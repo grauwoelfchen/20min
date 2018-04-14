@@ -1,8 +1,13 @@
 #!/bin/bash
 set -eu
 
-kcov_dir="$(dirname $(readlink -f "${0}"))/kcov"
-kcov_bin="${kcov_dir}/bin/kcov"
+if [ -n "${2:-}" ]; then
+  kcov_cmd="${2}"
+else
+  kcov_dir="$(dirname $(readlink -f "${0}"))/kcov"
+  kcov_cmd="${kcov_dir}/bin/kcov"
+fi
+echo "$kcov_cmd"
 
 output_dir="$(pwd)/target/coverage"
 target_dir="$(pwd)/target/debug"
@@ -12,7 +17,7 @@ target_files=$(ls $target_dir/$target_name-* | grep -v '\.d$')
 echo $target_files
 
 for file in $target_files; do
-  $kcov_bin --verify --include-path=$(pwd)/src \
+  $kcov_cmd --verify --include-path=$(pwd)/src \
             "$output_dir" "$file"
 done
 

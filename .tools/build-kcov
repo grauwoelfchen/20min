@@ -7,12 +7,12 @@ set -eu
 renew="${KCOV_DISCARD_CACHE:-false}"
 
 kcov_dir="$(dirname $(readlink -f "${0}"))/kcov"
-kcov_bin="${kcov_dir}/bin/kcov"
+kcov_cmd="${kcov_dir}/bin/kcov"
 kcov_url="https://github.com/SimonKagstrom/kcov/archive"
 kcov_ver="v34"
 
-if [[ -f "${kcov_bin}" && "${renew}" != "true" ]]; then
-  echo "kcov already installed in ${kcov_bin}"
+if [[ -f "${kcov_cmd}" && "${renew}" != "true" ]]; then
+  echo "kcov already installed in ${kcov_cmd}"
 else
   rm -fr $kcov_dir
   mkdir $kcov_dir
