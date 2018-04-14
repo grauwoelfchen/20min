@@ -14,10 +14,9 @@ test: ## Run unit tests and integration tests
 .PHONY: test
 
 coverage: ## Generate coverage report of unit tests using kcov (alias: cov)
-	./tools/build-kcov
 	cargo build --tests
-	#./tools/check-kcov integration_test
-	./tools/check-kcov 20min
+	#./.tools/check-kcov integration_test
+	./.tools/check-kcov 20min
 .PHONY: coverage
 
 cov: | coverage
