@@ -59,6 +59,7 @@ License
 
 .. code:: text
 
+   20min
    Copyright 2018 Yasuhiro Asaka
 
    Licensed under the Apache License, Version 2.0 (the "License");
