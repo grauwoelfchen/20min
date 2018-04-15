@@ -6,7 +6,10 @@ fmt: | format
 .PHONY: fmt
 
 lint: ## Check code style using clippy
+	## if you have clippy as optional dependency, then
 	cargo rustc --features clippy -- -Z no-trans -Z extra-plugins=clippy
+	## otherwise, in dev-dependencies
+	## cargo clippy
 .PHONY: lint
 
 test: ## Run unit tests and integration tests
