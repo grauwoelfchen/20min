@@ -1,4 +1,4 @@
-///! A collection as module have functions that handle the progress.
+//! A collection as module which have functions that handle the progress.
 use std::io::{self, Write};
 use std::{thread, time};
 
