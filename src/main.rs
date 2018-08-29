@@ -6,12 +6,29 @@
 //! % 20min 15,5
 //! % 20min 0.5 5
 //! ```
+extern crate structopt;
+
 use std::str::FromStr;
+
+use structopt::StructOpt;
 
 use config::Config;
 mod config;
 use ticker::tick;
 mod ticker;
+
+/// Command line options.
+#[derive(Debug, StructOpt)]
+#[structopt(name = "20min", about = "A command line working timer.")]
+struct Opts {
+  /// working time
+  #[structopt(short = "w", long = "work", default_value = "15")]
+  work: String,
+
+  /// rest time
+  #[structopt(short = "r", long = "rest", default_value = "5")]
+  rest: String,
+}
 
 /// Create new pair using `Option`.
 ///
@@ -78,14 +95,30 @@ fn report(duration: u64) {
 
 fn main() {
   let mut args: Vec<String> = std::env::args().skip(1).collect();
+
+  // detect argument type ("20,3" or "--work 5 --rest 0.1")
+  let mut use_opts: bool = false;
+  let o = ["-w", "--work", "-r", "--rest", "-h", "--help", "-V", "--version"];
+  for opt in o.iter() {
+    if args.contains(&(opt.to_string())) {
+      use_opts = true;
+      break;
+    }
+  }
+
+  if use_opts {
+    let opts = Opts::from_args();
+    args = vec![opts.work, opts.rest];
+  }
+
   if args.len() == 1 {
-    // handle single string input like: 15,5
+    // handle single string input like: "15,5"
     if let Some(v) = split_arg(&args[0]) {
       args = v;
     }
   }
-  let c = Config::new(args);
 
+  let c = Config::new(args);
   if c.params.len() > 2 {
     eprintln!("Usage: 20min n (working time) n (time for rest)");
     std::process::exit(1);
