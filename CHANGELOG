@@ -1,3 +1,7 @@
+Wed 29 Aug 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Update rustfmt-preview and clippy
+	* Add `--work/--rest` options (see 20min --help for details)
+
 Fri 13 Apr 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Update docker images on CI (Gentoo Linux)
 
