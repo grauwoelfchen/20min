@@ -6,10 +6,7 @@ fmt: | format
 .PHONY: fmt
 
 lint: ## Check code style using clippy
-	## if you have clippy as optional dependency, then
 	cargo clippy --all-targets
-	## otherwise, in dev-dependencies
-	## cargo clippy
 .PHONY: lint
 
 test: ## Run unit tests and integration tests
