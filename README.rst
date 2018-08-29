@@ -30,7 +30,7 @@ Usage
 
 .. code:: zsh
 
-   # see 20min --help for detail
+   # see 20min --help for the details
    % 20min
    % 20min 15,5
    % 20min 15 5

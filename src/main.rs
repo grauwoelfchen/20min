@@ -19,13 +19,17 @@ mod ticker;
 
 /// Command line options.
 #[derive(Debug, StructOpt)]
-#[structopt(name = "20min", about = "A command line working timer.")]
+#[structopt(
+  name = "20min",
+  about = "\nA command line working timer. Run with arguments `15,5` (minutes) \
+           or OPTIONS \nlike `--work 15 --rest 15`."
+)]
 struct Opts {
-  /// working time
+  /// Working time
   #[structopt(short = "w", long = "work", default_value = "15")]
   work: String,
 
-  /// rest time
+  /// Time of rest
   #[structopt(short = "r", long = "rest", default_value = "5")]
   rest: String,
 }
