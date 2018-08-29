@@ -10,7 +10,7 @@ use std::{thread, time};
 /// # Examples
 ///
 /// ```
-///  assert_eq!("", progress(10, 100, "Working"));
+/// assert_eq!("", progress(10, 100, "Working"));
 /// ```
 ///
 pub fn progress(count: u64, total: u64, prefix_text: &str) {

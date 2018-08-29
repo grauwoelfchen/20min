@@ -49,10 +49,7 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
   match s.find(separator) {
     None => None,
     Some(index) => {
-      match (
-        T::from_str(&s[..index]),
-        T::from_str(&s[index + 1..]),
-      ) {
+      match (T::from_str(&s[..index]), T::from_str(&s[index + 1..])) {
         (Ok(l), Ok(r)) => Some((l, r)),
         _ => None,
       }
@@ -69,7 +66,10 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
 /// # Examples
 ///
 /// ```
-/// assert_eq!(Some(vec!["10".to_string(), "".to_string()]), split_arg("10,"));
+/// assert_eq!(
+///   Some(vec!["10".to_string(), "".to_string()]),
+///   split_arg("10,")
+/// );
 /// ```
 fn split_arg(s: &str) -> Option<Vec<String>> {
   match parse_pair::<String>(s, ',') {
@@ -98,7 +98,16 @@ fn main() {
 
   // detect argument type ("20,3" or "--work 5 --rest 0.1")
   let mut use_opts: bool = false;
-  let o = ["-w", "--work", "-r", "--rest", "-h", "--help", "-V", "--version"];
+  let o = [
+    "-w",
+    "--work",
+    "-r",
+    "--rest",
+    "-h",
+    "--help",
+    "-V",
+    "--version",
+  ];
   for opt in o.iter() {
     if args.contains(&(opt.to_string())) {
       use_opts = true;
@@ -145,10 +154,7 @@ mod main_test {
     assert_eq!(parse_pair::<i32>("10,20", ','), Some((10, 20)));
     assert_eq!(parse_pair::<i32>("10,20xy", ','), None);
     assert_eq!(parse_pair::<f64>("0.5x", 'x'), None);
-    assert_eq!(
-      parse_pair::<f64>("0.5x1.5", 'x'),
-      Some((0.5, 1.5))
-    );
+    assert_eq!(parse_pair::<f64>("0.5x1.5", 'x'), Some((0.5, 1.5)));
     assert_eq!(
       parse_pair::<String>("0,5", ','),
       Some(("0".to_string(), "5".to_string()))

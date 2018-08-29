@@ -1,5 +1,5 @@
 format: ## Check format without changes (alias: fmt)
-	cargo fmt --all -- --write-mode=diff
+	cargo fmt --all -- --check
 .PHONY: format
 
 fmt: | format
@@ -7,7 +7,7 @@ fmt: | format
 
 lint: ## Check code style using clippy
 	## if you have clippy as optional dependency, then
-	cargo rustc --features clippy -- -Z no-trans -Z extra-plugins=clippy
+	cargo clippy --all-targets
 	## otherwise, in dev-dependencies
 	## cargo clippy
 .PHONY: lint

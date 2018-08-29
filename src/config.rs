@@ -50,9 +50,7 @@ mod config_test {
     assert_eq!((900, 300), c.to_tuple());
     assert_eq!(c.to_tuple(), c.to_tuple());
 
-    c = Config {
-      params: vec![10],
-    };
+    c = Config { params: vec![10] };
     assert_eq!((10, 300), c.to_tuple());
 
     c = Config {

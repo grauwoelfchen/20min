@@ -17,10 +17,10 @@ wrap_comments = true
 
 use_field_init_shorthand = true
 
-reorder_imported_names = false
 reorder_imports = false
-reorder_imports_in_group = false
+# reorder_imported_names = false
+# reorder_imports_in_group = false
 
-reorder_extern_crates = false
-reorder_extern_crates_in_group = false
+# reorder_extern_crates = false
+# reorder_extern_crates_in_group = false
 reorder_modules = false
