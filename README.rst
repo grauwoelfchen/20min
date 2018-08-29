@@ -22,14 +22,20 @@ Usage
 .. code:: zsh
 
    # 900 secs work and 300 secs rest (same as default)
-   % 20min 15,5
+   % 20min -w 15 -r 5
        Working [==============================================================] 100%
       Finished work [unoptimized + progressbar] targes(+s) in 900 secs
        Resting [===================================================-----------] 80%
 
-   # 30 secs work and 600 secs rest ;)
-   % 20min 0.5 5
 
+.. code:: zsh
+
+   # see 20min --help for detail
+   % 20min
+   % 20min 15,5
+   % 20min 15 5
+   % 20min --work 15 --rest 5
+   % 20min -w 15
 
 
 Build
