@@ -1,12 +1,11 @@
 stages:
-  - check
-  - lint
+  - vet
   - test
   - build
   - pages
 
 check:
-  stage: check
+  stage: vet
   image: grauwoelfchen/rust-ci-tools:nightly
   before_script:
     - rustc --version
@@ -18,7 +17,7 @@ check:
     - tags
 
 lint:
-  stage: lint
+  stage: vet
   image: grauwoelfchen/rust-ci-tools:nightly
   before_script:
     - rustc --version
