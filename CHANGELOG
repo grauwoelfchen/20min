@@ -1,3 +1,6 @@
+Tue 11 Sep 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Update gitlab-runner (gitlab-ci-multi-runner -> gitlab-runner)
+
 Wed 29 Aug 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Update rustfmt-preview and clippy
 	* Add `--work/--rest` options (see 20min --help for details)
