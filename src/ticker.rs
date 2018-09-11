@@ -34,7 +34,7 @@ pub fn progress(count: u64, total: u64, prefix_text: &str) {
 pub fn tick(total: u64, prefix_text: &str) {
   if total > 0 {
     progress(0, total, prefix_text);
-    for i in 1..total + 1 {
+    for i in 1..=total {
       thread::sleep(time::Duration::new(1, 0));
       progress(i, total, prefix_text);
     }

@@ -112,7 +112,7 @@ fn main() {
     "-V",
     "--version",
   ];
-  for opt in o.iter() {
+  for (_, opt) in o.iter().enumerate() {
     if args.contains(&(opt.to_string())) {
       use_opts = true;
       break;
