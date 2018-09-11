@@ -12,7 +12,7 @@ check:
     - cargo --version
     - cargo fmt --version
   script:
-    - make format
+    - make vet:format
   except:
     - tags
 
@@ -24,7 +24,7 @@ lint:
     - cargo --version
     - cargo clippy --version
   script:
-    - make lint
+    - make vet:lint
   except:
     - tags
 
@@ -36,7 +36,7 @@ test:
     - cargo --version
     - kcov --version
   script:
-    - make coverage
+    - make test:coverage
   after_script:
     - cat target/coverage/index.json
   except:

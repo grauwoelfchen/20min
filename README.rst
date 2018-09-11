@@ -56,7 +56,8 @@ See ``rust-lang/cargo#1924``
 
 .. code:: zsh
 
-   % make cov
+   % make test
+   % make test:coverage
 
 
 License
