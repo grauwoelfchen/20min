@@ -12,7 +12,6 @@ use std::{thread, time};
 /// ```
 /// assert_eq!("", progress(10, 100, "Working"));
 /// ```
-///
 pub fn progress(count: u64, total: u64, prefix_text: &str) {
   let bar_len = 62; // 80 - (12 + 6)
   let text_width = 12;
