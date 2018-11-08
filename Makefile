@@ -15,6 +15,12 @@ vet\:lint:  ## Check code style using clippy
 	cargo clippy --all-targets
 .PHONY: vet\:lint
 
+vet\:all: | vet\:check vet\:format vet\:lint  ## Check by all vet:xxx targets
+.PHONY: vet\:all
+
+vet: | vet\:format  ## Same as vet:format
+.PHONY: vet
+
 
 # -- test
 

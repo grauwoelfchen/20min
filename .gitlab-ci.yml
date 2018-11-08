@@ -4,7 +4,8 @@ stages:
   - build
   - pages
 
-check:
+# stages
+format:
   stage: vet
   image: grauwoelfchen/rust-ci-tools:nightly
   before_script:
