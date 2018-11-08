@@ -15,5 +15,5 @@ path = "src/main.rs"
 panic = "abort"
 
 [dependencies]
-clippy = { version = "^0.0.193", optional = true }
+clippy = { version = "^0.0.302", optional = true }
 structopt = { version = "0.2.12", default-features = false }
