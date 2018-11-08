@@ -16,4 +16,4 @@ panic = "abort"
 
 [dependencies]
 clippy = { version = "^0.0.193", optional = true }
-structopt = { version = "0.2.10", default-features = false }
+structopt = { version = "0.2.12", default-features = false }
