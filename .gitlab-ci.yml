@@ -37,7 +37,21 @@ test:
     - cargo --version
     - kcov --version
   script:
-    - make test:coverage
+    - make test:all
+  after_script:
+    - cat target/coverage/index.json
+  except:
+    - tags
+
+coverage:
+  stage: test
+  image: grauwoelfchen/rust-ci-tools:nightly
+  before_script:
+    - rustc --version
+    - cargo --version
+    - kcov --version
+  script:
+    - make coverage
   after_script:
     - cat target/coverage/index.json
   except:
