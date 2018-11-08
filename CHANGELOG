@@ -1,4 +1,5 @@
 Thu 08 Nov 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* ADd make coverage targets
 	* Add make vet:all and make vet
 	* Add abort on panic for release build
 
