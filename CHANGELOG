@@ -1,3 +1,7 @@
+Thu 08 Nov 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Add make vet:all and make vet
+	* Add abort on panic for release build
+
 Tue 11 Sep 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Update gitlab-runner (gitlab-ci-multi-runner -> gitlab-runner)
 
