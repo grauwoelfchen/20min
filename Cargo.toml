@@ -11,6 +11,9 @@ license = "Apache-2.0"
 name = "20min"
 path = "src/main.rs"
 
+[profile.release]
+panic = "abort"
+
 [dependencies]
 clippy = { version = "^0.0.193", optional = true }
 structopt = { version = "0.2.10", default-features = false }
