@@ -49,7 +49,6 @@ test: | test\:bin   ## Same as test:bin
 # -- coverage
 
 coverage\:bin:  ## Generate coverage report of unit tests using kcov (alias: cov:bin)
-	cargo clean --target-dir target/debug
 	cargo test --bin 20min --no-run
 	./.tools/check-kcov 20min
 .PHONY: test\:coverage
@@ -58,7 +57,6 @@ cov\:bin: | coverage\:bin
 .PHONY: cov\:bin
 
 coverage\:integration:  ## Generate coverage report of integration tests (alias cov:integration)
-	cargo clean --target-dir target/debug
 	cargo test  --test integration_test --no-run
 	./.tools/check-kcov integration_test
 .PHONY: coverage\:integration
