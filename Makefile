@@ -4,21 +4,27 @@ vet\:check:  ## Check rust syntax
 	cargo check --all -v
 .PHONY: vet\:check
 
-vet\:format:  ## Check format without changes (alias: vet:fmt)
+vet\:format:  ## Check format without changes (alias: vet:fmt, fmt)
 	cargo fmt --all -- --check
 .PHONY: format
 
 vet\:fmt: | vet\:format
 .PHONY: vet\:fmt
 
-vet\:lint:  ## Check code style using clippy
+fmt: | vet\:format
+.PHONY: fmt
+
+vet\:lint:  ## Check code style using clippy (alias: lint)
 	cargo clippy --all-targets
 .PHONY: vet\:lint
+
+lint: | vet\:lint
+.PHONY: lint
 
 vet\:all: | vet\:check vet\:format vet\:lint  ## Check by all vet:xxx targets
 .PHONY: vet\:all
 
-vet: | vet\:format  ## Same as vet:format
+vet: | vet\:check  ## Same as vet:check
 .PHONY: vet
 
 
@@ -28,12 +34,15 @@ test\:bin:  ## Run only tests for bin (20min)
 	cargo test --bin 20min
 .PHONY: test\:bin
 
+test\:integration:  ## Run integrations test only
+	cargo test --test integration_test
+.PHONY: test\:integration
+
 test\:all:  ## Run all test targets
 	cargo test --tests
 .PHONY: test\:all
 
-test:  ## Run unit tests and integration tests
-	cargo test
+test: | test\:bin   ## Same as test:bin
 .PHONY: test
 
 
@@ -76,13 +85,16 @@ doc: | document
 
 # -- build
 
-build:  ## Create debug build
+build\:debug:  ## Create debug build
 	cargo build
-.PHONY: build
+.PHONY: build\:debug
 
 build\:release:  ## Create release build
 	cargo build --release
 .PHONY: build\:release
+
+build: | build\:debug  ## Same as build:debug
+.PHONY: build
 
 
 # -- other utilities
