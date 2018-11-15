@@ -47,13 +47,13 @@ coverage:
   stage: test
   image: grauwoelfchen/rust-ci-tools:nightly
   variables:
-    - KCOV_PATH: kcov
+    KCOV_PATH: kcov
   before_script:
     - rustc --version
     - cargo --version
     - kcov --version
   script:
-	  - cargo clean --target-dir target/debug
+    - cargo clean --target-dir target/debug
     - make coverage
   after_script:
     - cat target/coverage/index.json
