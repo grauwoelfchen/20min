@@ -73,7 +73,7 @@ cov: | coverage
 # -- doc
 
 document:  ## Generate documentation files (alias: doc)
-	cargo rustdoc -- --document-private-items -Z --display-warnings
+	cargo rustdoc -- --document-private-items -Z unstable-options --display-warnings
 .PHONY: document
 
 doc: | document
