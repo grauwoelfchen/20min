@@ -15,5 +15,12 @@ path = "src/main.rs"
 panic = "abort"
 
 [dependencies]
-clippy = { version = "^0.0.193", optional = true }
 structopt = { version = "0.2.12", default-features = false }
+
+[dev-dependencies]
+clippy = { version = "^0.0.302" }
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false
+features = ["user-hooks"]
