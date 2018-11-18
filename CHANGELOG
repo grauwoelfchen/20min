@@ -1,4 +1,6 @@
 Sun 18 Nov 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Disable pages stage on CI
+	* Add commit hooks using cargo-husky
 	* Change indent spaces as 4 (replace 4 spaces as 2 space in the editor)
 
 Thu 08 Nov 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
