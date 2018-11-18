@@ -2,7 +2,7 @@
 indent_style = "Block"
 
 max_width = 80
-tab_spaces = 2
+tab_spaces = 4
 
 binop_separator = "Back"
 
