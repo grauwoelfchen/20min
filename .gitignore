@@ -3,4 +3,5 @@
 /.tools/kcov
 /.tools/gitlab-runner
 
+/tmp
 .env.ci
