@@ -1,5 +1,5 @@
 Thu 18 Jul 2019 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
-	* Rename tools directory as .tool
+	* Rename tools directory as .tool, tests as test
 
 Sun 18 Nov 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Disable pages stage on CI
