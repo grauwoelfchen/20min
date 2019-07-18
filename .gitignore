@@ -1,7 +1,7 @@
 /target
 
-/.tools/kcov
-/.tools/gitlab-runner
+/.tool/kcov
+/.tool/gitlab-runner
 
 /tmp
 .env.ci
