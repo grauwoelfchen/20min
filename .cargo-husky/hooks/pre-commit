@@ -2,9 +2,9 @@
 
 set -ex
 
-# vet:check, vet:format, vet:lint
-echo '+make vet:all'
-make vet:all
+# verify:check, verify:format, verify:lint
+echo '+make verify:all'
+make verify:all
 
 echo '+make test'
 make test
