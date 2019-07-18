@@ -1,3 +1,6 @@
+Thu 18 Jul 2019 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Rename tools directory as .tool
+
 Sun 18 Nov 2018 Yasuhiro Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Disable pages stage on CI
 	* Add commit hooks using cargo-husky
