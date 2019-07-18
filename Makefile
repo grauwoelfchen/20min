@@ -34,8 +34,8 @@ test\:bin:  ## Run only tests for bin (20min)
 	cargo test --bin 20min
 .PHONY: test\:bin
 
-test\:integration:  ## Run integrations test only
-	cargo test --test integration_test
+test\:integration:  ## Run integration tests only
+	cargo test --test integration
 .PHONY: test\:integration
 
 test\:all:  ## Run all test targets
@@ -57,8 +57,8 @@ cov\:bin: | coverage\:bin
 .PHONY: cov\:bin
 
 coverage\:integration:  ## Generate coverage report of integration tests (alias cov:integration)
-	cargo test  --test integration_test --no-run
-	./.tool/check-kcov integration_test
+	cargo test  --test integration --no-run
+	./.tool/check-kcov integration
 .PHONY: coverage\:integration
 
 cov\:integration: coverage\:integration

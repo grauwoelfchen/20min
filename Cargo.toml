@@ -11,6 +11,10 @@ license = "Apache-2.0"
 name = "20min"
 path = "src/main.rs"
 
+[[test]]
+name = "integration"
+path = "test/test.rs"
+
 [profile.release]
 panic = "abort"
 
