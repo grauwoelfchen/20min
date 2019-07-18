@@ -1,87 +1,87 @@
-# -- vet
+# verify -- {{{
+verify\:check:  ## Check rust syntax
+	@cargo check --all -v
+.PHONY: verify\:check
 
-vet\:check:  ## Check rust syntax
-	cargo check --all -v
-.PHONY: vet\:check
-
-vet\:format:  ## Check format without changes (alias: vet:fmt, fmt)
-	cargo fmt --all -- --check
+verify\:format:  ## Check format without changes (alias: verify:fmt, fmt)
+	@cargo fmt --all -- --check
 .PHONY: format
 
-vet\:fmt: | vet\:format
-.PHONY: vet\:fmt
+verify\:fmt: | verify\:format
+.PHONY: verify\:fmt
 
-fmt: | vet\:format
+format: | verify\:format
+.PHONY: format
+
+fmt: | verify\:format
 .PHONY: fmt
 
-vet\:lint:  ## Check code style using clippy (alias: lint)
-	cargo clippy --all-targets
-.PHONY: vet\:lint
+verify\:lint:  ## Check code style using clippy (alias: lint)
+	@cargo clippy --all-targets
+.PHONY: verify\:lint
 
-lint: | vet\:lint
+lint: | verify\:lint
 .PHONY: lint
 
-vet\:all: | vet\:check vet\:format vet\:lint  ## Check by all vet:xxx targets
-.PHONY: vet\:all
+verify\:all: | verify\:check verify\:format verify\:lint  ## Check by all verify:xxx targets
+.PHONY: verify\:all
 
-vet: | vet\:check  ## Same as vet:check
-.PHONY: vet
+verify: | verify\:check  ## Same as verify:check
+.PHONY: verify
+# }}}
 
+# test -- {{{
+test\:unit:  ## Run only unit tests
+	@cargo test --bin 20min
+.PHONY: test\:unit
 
-# -- test
-
-test\:bin:  ## Run only tests for bin (20min)
-	cargo test --bin 20min
-.PHONY: test\:bin
-
-test\:integration:  ## Run integrations test only
-	cargo test --test integration_test
+test\:integration:  ## Run integration tests only
+	@cargo test --test integration
 .PHONY: test\:integration
 
 test\:all:  ## Run all test targets
-	cargo test --tests
+	@cargo test --tests
 .PHONY: test\:all
 
-test: | test\:bin   ## Same as test:bin
+test: | test\:unit  ## Same as test:unit
 .PHONY: test
+# }}}
 
-
-# -- coverage
-
-coverage\:bin:  ## Generate coverage report of unit tests using kcov (alias: cov:bin)
-	cargo test --bin 20min --no-run
-	./.tools/check-kcov 20min
+# coverage -- {{{
+coverage\:unit:  ## Generate coverage report of unit tests using kcov (alias: cov:unit)
+	@cargo test --bin 20min --no-run
+	@./.tool/check-kcov 20min
 .PHONY: test\:coverage
 
-cov\:bin: | coverage\:bin
-.PHONY: cov\:bin
+cov\:unit: | coverage\:unit
+.PHONY: cov\:unit
 
 coverage\:integration:  ## Generate coverage report of integration tests (alias cov:integration)
-	cargo test  --test integration_test --no-run
-	./.tools/check-kcov integration_test
+	@cargo test  --test integration --no-run
+	@./.tool/check-kcov integration
 .PHONY: coverage\:integration
 
 cov\:integration: coverage\:integration
 .PHONY: cov\:integration
 
-coverage: | coverage\:bin  ## Same as coverage:bin (alias: cov)
+coverage: | coverage\:unit  ## Same as coverage:unit (alias: cov)
 .PHONY: coverage
 
 cov: | coverage
 .PHONY: cov
+# }}}
 
-# -- doc
-
+# documentation -- {{{
 document:  ## Generate documentation files (alias: doc)
-	cargo rustdoc -- --document-private-items -Z unstable-options --display-warnings
+	cargo rustdoc -- \
+		--document-private-items -Z unstable-options --display-warnings
 .PHONY: document
 
 doc: | document
 .PHONY: doc
+# }}}
 
-
-# -- build
-
+# build -- {{{
 build\:debug:  ## Create debug build
 	cargo build
 .PHONY: build\:debug
@@ -92,20 +92,21 @@ build\:release:  ## Create release build
 
 build: | build\:debug  ## Same as build:debug
 .PHONY: build
+# }}}
 
-
-# -- other utilities
-
+# other utilities -- {{{
 clean:  ## Clean up
-	cargo clean
+	@cargo clean
 .PHONY: clean
 
 help:  ## Display this message
 	@grep -E '^[0-9a-z\:\\]+: ' $(MAKEFILE_LIST) | grep -E '  ## ' | \
-	  sed -e 's/\(\s|\(\s[0-9a-z\:\\]*\)*\)  /  /' | tr -d \\\\ | \
-	  awk 'BEGIN {FS = ":  ## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' | \
-	  sort
+		sed -e 's/\(\s|\(\s[0-9a-z\:\\]*\)*\)  /  /' | tr -d \\\\ | \
+		awk 'BEGIN {FS = ":  ## "};" \
+		  "{printf "\033[38;05;222m%-21s\033[0m %s\n", $$1, $$2}' | \
+		sort
 .PHONY: help
 
 .DEFAULT_GOAL = test
 default: test
+# }}}

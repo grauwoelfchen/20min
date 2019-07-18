@@ -1,5 +1,5 @@
 stages:
-  - vet
+  - verify
   - test
   - build
   # - pages
@@ -11,7 +11,7 @@ stages:
 
 # stages
 format:
-  stage: vet
+  stage: verify
   <<: *ci-tools
   before_script:
     - rustc --version
@@ -19,10 +19,10 @@ format:
     - cargo fmt --version
   script:
     - mkdir -p .git/hooks
-    - make vet:format
+    - make verify:format
 
 lint:
-  stage: vet
+  stage: verify
   <<: *ci-tools
   before_script:
     - rustc --version
@@ -30,7 +30,7 @@ lint:
     - cargo clippy --version
   script:
     - mkdir -p .git/hooks
-    - make vet:lint
+    - make verify:lint
 
 test:
   stage: test

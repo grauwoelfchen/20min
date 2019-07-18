@@ -11,11 +11,15 @@ license = "Apache-2.0"
 name = "20min"
 path = "src/main.rs"
 
+[[test]]
+name = "integration"
+path = "test/test.rs"
+
 [profile.release]
 panic = "abort"
 
 [dependencies]
-structopt = { version = "0.2.12", default-features = false }
+structopt = { version = "0.2.18", default-features = false }
 
 [dev-dependencies.cargo-husky]
 version = "1"
