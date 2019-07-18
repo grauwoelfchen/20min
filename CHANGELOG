@@ -1,4 +1,5 @@
 Thu 18 Jul 2019 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Update dependencies (structopt and cargo-husky)
 	* Rename tools directory as .tool, tests as test
 
 Sun 18 Nov 2018 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
