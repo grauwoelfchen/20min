@@ -19,7 +19,7 @@ path = "test/test.rs"
 panic = "abort"
 
 [dependencies]
-structopt = { version = "0.2.18", default-features = false }
+structopt = { version = "0.3.1", default-features = false }
 
 [dev-dependencies.cargo-husky]
 version = "1"
