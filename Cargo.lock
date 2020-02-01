@@ -5,7 +5,7 @@ name = "20min"
 version = "0.0.1"
 dependencies = [
  "cargo-husky 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "structopt 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "structopt 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -37,13 +37,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "lazy_static"
+version = "1.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
 name = "proc-macro-error"
-version = "0.2.6"
+version = "0.4.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "proc-macro-error-attr 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "proc-macro2 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rustversion 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "syn 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "proc-macro-error-attr"
+version = "0.4.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "proc-macro2 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rustversion 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "syn-mid 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -63,21 +82,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "rustversion"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "proc-macro2 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "syn 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "structopt"
-version = "0.3.3"
+version = "0.3.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "structopt-derive 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "structopt-derive 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "structopt-derive"
-version = "0.3.3"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "heck 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "proc-macro-error 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "proc-macro-error 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "proc-macro2 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -91,6 +121,16 @@ dependencies = [
  "proc-macro2 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "unicode-xid 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "syn-mid"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "proc-macro2 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "syn 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -121,12 +161,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum cargo-husky 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ee1f6a41bcc9d0aeff394d58275742a53beb62da685d8046c4756a8e4a507bbf"
 "checksum clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)" = "5067f5bb2d80ef5d68b4c87db81601f0b75bca627bc2ef76b141d7b846a3c6d9"
 "checksum heck 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "20564e78d53d2bb135c343b3f47714a56af2061f1c928fdb541dc7b9fdd94205"
-"checksum proc-macro-error 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)" = "aeccfe4d5d8ea175d5f0e4a2ad0637e0f4121d63bd99d356fb1f39ab2e7c6097"
+"checksum lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
+"checksum proc-macro-error 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)" = "1b79a464461615532fcc8a6ed8296fa66cc12350c18460ab3f4594a6cee0fcb6"
+"checksum proc-macro-error-attr 0.4.5 (registry+https://github.com/rust-lang/crates.io-index)" = "23832e5eae6bac56bbac190500eef1aaede63776b5cd131eaa4ee7fe120cd892"
 "checksum proc-macro2 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)" = "e98a83a9f9b331f54b924e68a66acb1bb35cb01fb0a23645139967abefb697e8"
 "checksum quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)" = "053a8c8bcc71fcce321828dc897a98ab9760bef03a4fc36693c231e5b3216cfe"
-"checksum structopt 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)" = "6d4f66a4c0ddf7aee4677995697366de0749b0139057342eccbb609b12d0affc"
-"checksum structopt-derive 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)" = "8fe0c13e476b4e21ff7f5c4ace3818b6d7bdc16897c31c73862471bc1663acae"
+"checksum rustversion 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "3a0538bd897e17257b0128d2fd95c2ed6df939374073a36166051a79e2eb7986"
+"checksum structopt 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)" = "df136b42d76b1fbea72e2ab3057343977b04b4a2e00836c3c7c0673829572713"
+"checksum structopt-derive 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)" = "fd50a87d2f7b8958055f3e73a963d78feaccca3836767a9069844e34b5b03c0a"
 "checksum syn 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)" = "66850e97125af79138385e9b88339cbcd037e3f28ceab8c5ad98e64f0f1f80bf"
+"checksum syn-mid 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "9fd3937748a7eccff61ba5b90af1a20dbf610858923a9192ea0ecb0cb77db1d0"
 "checksum textwrap 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "d326610f408c7a4eb6f51c37c330e496b08506c9457c9d34287ecc38809fb060"
 "checksum unicode-segmentation 1.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "1967f4cdfc355b37fd76d2a954fb2ed3871034eb4f26d60537d88795cfc332a9"
 "checksum unicode-width 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)" = "882386231c45df4700b275c7ff55b6f3698780a650026380e72dabe76fa46526"
