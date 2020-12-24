@@ -1,9 +1,9 @@
-# verify -- {{{
+# verify
 verify\:check:  ## Check rust syntax
 	@cargo check --all -v
 .PHONY: verify\:check
 
-verify\:format:  ## Check format without changes (alias: verify:fmt, fmt)
+verify\:format:  ## Check format without changes [alias: verify:fmt, fmt]
 	@cargo fmt --all -- --check
 .PHONY: format
 
@@ -16,7 +16,7 @@ format: | verify\:format
 fmt: | verify\:format
 .PHONY: fmt
 
-verify\:lint:  ## Check code style using clippy (alias: lint)
+verify\:lint:  ## Check code style using clippy [alias: lint]
 	@cargo clippy --all-targets
 .PHONY: verify\:lint
 
@@ -28,9 +28,8 @@ verify\:all: | verify\:check verify\:format verify\:lint  ## Check by all verify
 
 verify: | verify\:check  ## Same as verify:check
 .PHONY: verify
-# }}}
 
-# test -- {{{
+# test
 test\:unit:  ## Run only unit tests
 	@cargo test --bin 20min
 .PHONY: test\:unit
@@ -45,34 +44,25 @@ test\:all:  ## Run all test targets
 
 test: | test\:unit  ## Same as test:unit
 .PHONY: test
-# }}}
 
-# coverage -- {{{
-coverage\:unit:  ## Generate coverage report of unit tests using kcov (alias: cov:unit)
+# coverage
+coverage\:unit:  ## Generate coverage report of unit tests [alias: cov:unit]
 	@cargo test --bin 20min --no-run
-	@./.tool/check-kcov 20min
-.PHONY: test\:coverage
+	@./.tool/setup-kcov
+	./.tool/get-covered 20min
+.PHONY: coverage\:unit
 
 cov\:unit: | coverage\:unit
 .PHONY: cov\:unit
 
-coverage\:integration:  ## Generate coverage report of integration tests (alias cov:integration)
-	@cargo test  --test integration --no-run
-	@./.tool/check-kcov integration
-.PHONY: coverage\:integration
-
-cov\:integration: coverage\:integration
-.PHONY: cov\:integration
-
-coverage: | coverage\:unit  ## Same as coverage:unit (alias: cov)
+coverage: | coverage\:unit  ## Same as coverage:unit [alias: cov]
 .PHONY: coverage
 
 cov: | coverage
 .PHONY: cov
-# }}}
 
-# documentation -- {{{
-document:  ## Generate documentation files (alias: doc)
+# documentation
+document:  ## Generate documentation files [alias: doc]
 	cargo rustdoc -- \
 		--document-private-items -Z unstable-options --display-warnings
 .PHONY: document
@@ -81,7 +71,7 @@ doc: | document
 .PHONY: doc
 # }}}
 
-# build -- {{{
+# build
 build\:debug:  ## Create debug build
 	cargo build
 .PHONY: build\:debug
@@ -92,9 +82,8 @@ build\:release:  ## Create release build
 
 build: | build\:debug  ## Same as build:debug
 .PHONY: build
-# }}}
 
-# other utilities -- {{{
+# other
 clean:  ## Clean up
 	@cargo clean
 .PHONY: clean
@@ -109,4 +98,3 @@ help:  ## Display this message
 
 .DEFAULT_GOAL = test
 default: test
-# }}}

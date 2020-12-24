@@ -9,7 +9,6 @@ stages:
   except:
     - tags
 
-# stages
 format:
   stage: verify
   <<: *ci-tools
@@ -43,7 +42,7 @@ test:
     - mkdir -p .git/hooks
     - make test:all
   after_script:
-    - cat target/coverage/index.json
+    - cat target/coverage/index.js
 
 coverage:
   stage: test
@@ -60,7 +59,7 @@ coverage:
     - cargo clean --target-dir target/debug
     - make coverage
   after_script:
-    - cat target/coverage/index.json
+    - cat target/coverage/index.js
 
 build:
   stage: build
