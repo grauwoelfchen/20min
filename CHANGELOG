@@ -1,3 +1,9 @@
+Fri 25 Jul 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Set rust version as stable
+	* Fix jobs on CI
+	* Set package name as "cli-20min" for now (can't start it with a number)
+	* Fix coverage report (Update kcov from v34 to v38)
+
 Thu 18 Jul 2019 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Update dependencies (structopt and cargo-husky)
 	* Rename tools directory as .tool, tests as test
