@@ -1,5 +1,5 @@
 [package]
-name = "20min"
+name = "cli-20min"
 version = "0.0.1"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
 description = "A command line working timer"
