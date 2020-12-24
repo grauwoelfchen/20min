@@ -4,14 +4,14 @@ stages:
   - build
   # - pages
 
-.ci-tools: &ci-tools
-  image: grauwoelfchen/rust-ci-tools:nightly
+.vet-tools: &vet-tools
+  image: registry.gitlab.com/grauwoelfchen/portolan/rust-vet-tools:1.48.0-nightly
   except:
     - tags
 
 format:
   stage: verify
-  <<: *ci-tools
+  <<: *vet-tools
   before_script:
     - rustc --version
     - cargo --version
@@ -22,7 +22,7 @@ format:
 
 lint:
   stage: verify
-  <<: *ci-tools
+  <<: *vet-tools
   before_script:
     - rustc --version
     - cargo --version
@@ -33,7 +33,7 @@ lint:
 
 test:
   stage: test
-  <<: *ci-tools
+  <<: *vet-tools
   before_script:
     - rustc --version
     - cargo --version
@@ -46,7 +46,7 @@ test:
 
 coverage:
   stage: test
-  <<: *ci-tools
+  <<: *vet-tools
   before_script:
   variables:
     KCOV_PATH: kcov
