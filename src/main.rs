@@ -57,7 +57,7 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
                 (Ok(l), Ok(r)) => Some((l, r)),
                 _ => None,
             }
-        },
+        }
     }
 }
 
