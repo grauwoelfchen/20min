@@ -1,4 +1,5 @@
-PACKAGE = 20min
+PACKAGE = cli-20min
+BINARY = 20min
 
 # verify
 verify\:check:  ## Check rust syntax
@@ -33,7 +34,7 @@ verify: verify\:check  ## Same as verify:check
 
 # test
 test\:unit:  ## Run only unit tests
-	@cargo test --bin 20min
+	@cargo test --bin $(BINARY)
 .PHONY: test\:unit
 
 test\:e2e:  ## Run e2e tests only
@@ -49,7 +50,7 @@ test: test\:all  ## Same as test:all
 
 # coverage
 coverage\:unit:  ## Generate a coverage report of unit tests [alias: cov:unit]
-	@cargo test --bin $(PACKAGE) --no-run
+	@cargo test --bin $(BINARY) --no-run
 	@set -uo pipefail; \
 	dir="$$(pwd)"; \
 	output_dir="$${dir}/target/coverage"; \
@@ -121,8 +122,7 @@ cov: coverage
 
 # documentation
 document:  ## Generate documentation files [alias: doc]
-	cargo rustdoc -- \
-		--document-private-items -Z unstable-options --display-warnings
+	cargo rustdoc --package $(PACKAGE)
 .PHONY: document
 
 doc: document
