@@ -1,3 +1,5 @@
+PACKAGE = 20min
+
 # verify
 verify\:check:  ## Check rust syntax
 	@cargo check --all -v
@@ -7,26 +9,26 @@ verify\:format:  ## Check format without changes [alias: verify:fmt, fmt]
 	@cargo fmt --all -- --check
 .PHONY: format
 
-verify\:fmt: | verify\:format
+verify\:fmt: verify\:format
 .PHONY: verify\:fmt
 
-format: | verify\:format
+format: verify\:format
 .PHONY: format
 
-fmt: | verify\:format
+fmt: verify\:format
 .PHONY: fmt
 
 verify\:lint:  ## Check code style using clippy [alias: lint]
 	@cargo clippy --all-targets
 .PHONY: verify\:lint
 
-lint: | verify\:lint
+lint: verify\:lint
 .PHONY: lint
 
-verify\:all: | verify\:check verify\:format verify\:lint  ## Check by all verify:xxx targets
+verify\:all: verify\:check verify\:format verify\:lint  ## Check by all verify:xxx targets
 .PHONY: verify\:all
 
-verify: | verify\:check  ## Same as verify:check
+verify: verify\:check  ## Same as verify:check
 .PHONY: verify
 
 # test
@@ -34,31 +36,87 @@ test\:unit:  ## Run only unit tests
 	@cargo test --bin 20min
 .PHONY: test\:unit
 
-test\:integration:  ## Run integration tests only
-	@cargo test --test integration
-.PHONY: test\:integration
+test\:e2e:  ## Run e2e tests only
+	@cargo test --test e2e
+.PHONY: test\:e2e
 
-test\:all:  ## Run all test targets
+test\:all:  ## Run all test targets [alias test]
 	@cargo test --tests
 .PHONY: test\:all
 
-test: | test\:unit  ## Same as test:unit
+test: test\:all  ## Same as test:all
 .PHONY: test
 
 # coverage
-coverage\:unit:  ## Generate coverage report of unit tests [alias: cov:unit]
-	@cargo test --bin 20min --no-run
-	@./.tool/setup-kcov
-	./.tool/get-covered 20min
+coverage\:unit:  ## Generate a coverage report of unit tests [alias: cov:unit]
+	@cargo test --bin $(PACKAGE) --no-run
+	@set -uo pipefail; \
+	dir="$$(pwd)"; \
+	output_dir="$${dir}/target/coverage"; \
+	target_dir="$${dir}/target/debug/deps"; \
+	if [ -f "$${output_dir}/index.js" ]; then \
+		rm "$${output_dir}/index.js"; \
+	fi; \
+	i=0; \
+	for file in $$(ls $$target_dir/$(PACKAGE)-* | \
+		grep --invert-match '\.d$$'); do \
+		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
+	done; \
+	grep 'index.html' $$output_dir-0/index.js* | \
+		grep --only-matching --extended-regexp \
+			'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | \
+			sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage\:unit
 
-cov\:unit: | coverage\:unit
+cov\:unit: coverage\:unit
 .PHONY: cov\:unit
 
-coverage: | coverage\:unit  ## Same as coverage:unit [alias: cov]
+coverage\:e2e:  ## Generate a coverage report of e2e tests [alias: cov:e2e]
+	@cargo test --test e2e --no-run
+	@set -uo pipefail; \
+	dir="$$(pwd)"; \
+	output_dir="$${dir}/target/coverage"; \
+	target_dir="$${dir}/target/debug/deps"; \
+	if [ -f "$${output_dir}/index.js" ]; then \
+		rm "$${output_dir}/index.js"; \
+	fi; \
+	i=0; \
+	for file in $$(ls $$target_dir/$(PACKAGE)-* | \
+		grep --invert-match '\.d$$'); do \
+		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
+	done; \
+	grep 'index.html' $$output_dir-0/index.js* | \
+		grep --only-matching --extended-regexp \
+			'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | \
+			sed -E 's/[a-z\:"]*//g'
+.PHONY: coverage\:e2e
+
+cov\:e2e: coverage\:e2e
+.PHONY: cov\:e2e
+
+# coverage
+coverage:  ## Generate merged coverage report of all tests [alias: cov]
+	@cargo test --all-targets --no-run
+	@set -uo pipefail; \
+	dir="$$(pwd)"; \
+	output_dir="$${dir}/target/coverage"; \
+	target_dir="$${dir}/target/debug/deps"; \
+	if [ -f "$${output_dir}/index.js" ]; then \
+		rm "$${output_dir}/index.js"; \
+	fi; \
+	i=0; \
+	for file in $$(ls $$target_dir/$(PACKAGE)-* | \
+		grep --invert-match '\.d$$'); do \
+		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
+	done; \
+	kcov --merge $$output_dir-$\*; \
+	grep '\[merged\]' $$output_dir-0/index.js* | \
+		grep --only-matching --extended-regexp \
+			'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | \
+			sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage
 
-cov: | coverage
+cov: coverage
 .PHONY: cov
 
 # documentation
@@ -67,7 +125,7 @@ document:  ## Generate documentation files [alias: doc]
 		--document-private-items -Z unstable-options --display-warnings
 .PHONY: document
 
-doc: | document
+doc: document
 .PHONY: doc
 # }}}
 
@@ -80,10 +138,10 @@ build\:release:  ## Create release build
 	cargo build --release
 .PHONY: build\:release
 
-build: | build\:debug  ## Same as build:debug
+build: build\:debug  ## Same as build:debug
 .PHONY: build
 
-# other
+# utility
 clean:  ## Clean up
 	@cargo clean
 .PHONY: clean
@@ -105,11 +163,12 @@ runner-%:  ## Run a CI job on local (on Docker)
 
 help:  ## Display this message
 	@set -uo pipefail; \
-	grep --extended-regexp '^[0-9a-z\%\:\\\-]+:  ## ' $(firstword $(MAKEFILE_LIST)) | \
+	grep --extended-regexp '^[0-9a-z\%\:\\\-]+:  ## ' \
+		$(firstword $(MAKEFILE_LIST)) | \
 		sed --expression='s/\(\s|\(\s[0-9a-z\:\\]*\)*\)  /  /' | \
 		tr --delete \\\\ | \
 		awk 'BEGIN {FS = ":  ## "}; \
-		  {printf "\033[38;05;222m%-18s\033[0m %s\n", $$1, $$2}' | \
+		  {printf "\033[38;05;222m%-14s\033[0m %s\n", $$1, $$2}' | \
 		sort
 .PHONY: help
 

@@ -41,8 +41,6 @@ test:
   script:
     - mkdir -p .git/hooks
     - make test:all
-  after_script:
-    - cat target/coverage/index.js
 
 coverage:
   stage: test
@@ -59,7 +57,7 @@ coverage:
     - cargo clean --target-dir target/debug
     - make coverage
   after_script:
-    - cat target/coverage/index.js
+    - cat target/coverage-0/index.json
 
 build:
   stage: build
