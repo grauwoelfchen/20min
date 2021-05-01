@@ -1,11 +1,11 @@
 20min
 =====
 
-.. image:: https://gitlab.com/grauwoelfchen/20min/badges/master/pipeline.svg
-   :target: https://gitlab.com/grauwoelfchen/20min/commits/master
+.. image:: https://gitlab.com/grauwoelfchen/20min/badges/trunk/pipeline.svg
+   :target: https://gitlab.com/grauwoelfchen/20min/commits/trunk
 
-.. image:: https://gitlab.com/grauwoelfchen/20min/badges/master/coverage.svg
-   :target: https://gitlab.com/grauwoelfchen/20min/commits/master
+.. image:: https://gitlab.com/grauwoelfchen/20min/badges/trunk/coverage.svg
+   :target: https://gitlab.com/grauwoelfchen/20min/commits/trunk
 
 |
 
