@@ -1,3 +1,7 @@
+Sat 01 May 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Add runner-% in Makefile
+	* Remove .tool directory
+
 Fri 25 Jul 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Set rust version as stable
 	* Fix jobs on CI
