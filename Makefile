@@ -51,22 +51,19 @@ test: test\:all  ## Same as test:all
 # coverage
 coverage\:unit:  ## Generate a coverage report of unit tests [alias: cov:unit]
 	@cargo test --bin $(BINARY) --no-run
-	@set -uo pipefail; \
+	set -uo pipefail; \
 	dir="$$(pwd)"; \
 	output_dir="$${dir}/target/coverage"; \
 	target_dir="$${dir}/target/debug/deps"; \
-	if [ -f "$${output_dir}/index.js" ]; then \
-		rm "$${output_dir}/index.js"; \
+	result=($${output_dir}/index.js*); \
+	if [ -f $${result}[0] ]; then \
+		rm "$${output_dir}/index.js*"; \
 	fi; \
-	i=0; \
-	for file in $$(ls $$target_dir/$(BINARY)-* | \
-		grep --invert-match '\.d$$'); do \
-		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
-	done; \
-	grep 'index.html' $$output_dir-0/index.js* | \
+	file=($$target_dir/$(BINARY)-*); \
+	kcov --verify --include-path=$$dir/src $$output_dir $${file[0]}; \
+	grep 'index.html' $$output_dir/index.js* | \
 		grep --only-matching --extended-regexp \
-			'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | \
-			sed -E 's/[a-z\:"]*//g'
+		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage\:unit
 
 cov\:unit: coverage\:unit
@@ -74,22 +71,19 @@ cov\:unit: coverage\:unit
 
 coverage\:e2e:  ## Generate a coverage report of e2e tests [alias: cov:e2e]
 	@cargo test --test e2e --no-run
-	@set -uo pipefail; \
+	set -uo pipefail; \
 	dir="$$(pwd)"; \
 	output_dir="$${dir}/target/coverage"; \
 	target_dir="$${dir}/target/debug/deps"; \
-	if [ -f "$${output_dir}/index.js" ]; then \
-		rm "$${output_dir}/index.js"; \
+	result=($${output_dir}/index.js*); \
+	if [ -f $${result}[0] ]; then \
+		rm "$${output_dir}/index.js*"; \
 	fi; \
-	i=0; \
-	for file in $$(ls $$target_dir/e2e-* | \
-		grep --invert-match '\.d$$'); do \
-		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
-	done; \
-	grep 'index.html' $$output_dir-0/index.js* | \
+	file=($$target_dir/e2e-*); \
+	kcov --verify --include-path=$$dir/src $$output_dir $${file[0]}; \
+	grep 'index.html' $$output_dir/index.js* | \
 		grep --only-matching --extended-regexp \
-			'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | \
-			sed -E 's/[a-z\:"]*//g'
+		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage\:e2e
 
 cov\:e2e: coverage\:e2e
@@ -98,23 +92,24 @@ cov\:e2e: coverage\:e2e
 # coverage
 coverage:  ## Generate merged coverage report of all tests [alias: cov]
 	@cargo test --all-targets --no-run
-	@set -uo pipefail; \
+	set -uo pipefail; \
 	dir="$$(pwd)"; \
 	output_dir="$${dir}/target/coverage"; \
 	target_dir="$${dir}/target/debug/deps"; \
-	if [ -f "$${output_dir}/index.js" ]; then \
-		rm "$${output_dir}/index.js"; \
+	result=($${output_dir}/index.js*); \
+	if [ -f $${result}[0] ]; then \
+		rm "$${output_dir}/index.js*"; \
 	fi; \
 	i=0; \
-	for file in $$(ls $$target_dir/$(PACKAGE)-* | \
+	for file in $$(ls $$target_dir/{$(BINARY),e2e}-* | \
 		grep --invert-match '\.d$$'); do \
 		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
+		i=$$((i+1)); \
 	done; \
 	kcov --merge $$output_dir-$\*; \
 	grep '\[merged\]' $$output_dir-0/index.js* | \
 		grep --only-matching --extended-regexp \
-			'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | \
-			sed -E 's/[a-z\:"]*//g'
+		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage
 
 cov: coverage
@@ -147,7 +142,7 @@ clean:  ## Clean up
 .PHONY: clean
 
 runner-%:  ## Run a CI job on local (on Docker)
-	@set -uo pipefail; \
+	set -uo pipefail; \
 	job=$(subst runner-,,$@); \
 	opt=""; \
 	while read line; do \

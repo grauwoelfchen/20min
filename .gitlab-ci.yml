@@ -46,15 +46,13 @@ coverage:
   stage: test
   <<: *vet-tools
   before_script:
-  variables:
-    KCOV_PATH: kcov
   before_script:
     - rustc --version
     - cargo --version
     - kcov --version
   script:
     - mkdir -p .git/hooks
-    - cargo clean --target-dir target/debug
+    - make clean
     - make coverage
   after_script:
     - cat target/coverage-0/index.json
