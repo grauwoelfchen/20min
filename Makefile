@@ -88,11 +88,28 @@ clean:  ## Clean up
 	@cargo clean
 .PHONY: clean
 
+runner-%:  ## Run a CI job on local (on Docker)
+	@set -uo pipefail; \
+	job=$(subst runner-,,$@); \
+	opt=""; \
+	while read line; do \
+	  opt+=" --env $$(echo $$line | sed -E 's/^export //')"; \
+	done < .env.ci; \
+	gitlab-runner exec docker \
+	  --executor docker \
+	  --cache-dir /cache \
+	  --docker-volumes $$(pwd)/.cache/gitlab-runner:/cache \
+	  --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
+	  $${opt} $${job}
+.PHONY: runner
+
 help:  ## Display this message
-	@grep -E '^[0-9a-z\:\\]+: ' $(MAKEFILE_LIST) | grep -E '  ## ' | \
-		sed -e 's/\(\s|\(\s[0-9a-z\:\\]*\)*\)  /  /' | tr -d \\\\ | \
-		awk 'BEGIN {FS = ":  ## "};" \
-		  "{printf "\033[38;05;222m%-21s\033[0m %s\n", $$1, $$2}' | \
+	@set -uo pipefail; \
+	grep --extended-regexp '^[0-9a-z\%\:\\\-]+:  ## ' $(firstword $(MAKEFILE_LIST)) | \
+		sed --expression='s/\(\s|\(\s[0-9a-z\:\\]*\)*\)  /  /' | \
+		tr --delete \\\\ | \
+		awk 'BEGIN {FS = ":  ## "}; \
+		  {printf "\033[38;05;222m%-18s\033[0m %s\n", $$1, $$2}' | \
 		sort
 .PHONY: help
 
