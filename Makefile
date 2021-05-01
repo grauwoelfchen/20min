@@ -59,7 +59,7 @@ coverage\:unit:  ## Generate a coverage report of unit tests [alias: cov:unit]
 		rm "$${output_dir}/index.js"; \
 	fi; \
 	i=0; \
-	for file in $$(ls $$target_dir/$(PACKAGE)-* | \
+	for file in $$(ls $$target_dir/$(BINARY)-* | \
 		grep --invert-match '\.d$$'); do \
 		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
 	done; \
@@ -82,7 +82,7 @@ coverage\:e2e:  ## Generate a coverage report of e2e tests [alias: cov:e2e]
 		rm "$${output_dir}/index.js"; \
 	fi; \
 	i=0; \
-	for file in $$(ls $$target_dir/$(PACKAGE)-* | \
+	for file in $$(ls $$target_dir/e2e-* | \
 		grep --invert-match '\.d$$'); do \
 		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
 	done; \
