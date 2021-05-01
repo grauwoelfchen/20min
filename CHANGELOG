@@ -1,3 +1,6 @@
+Sun 02 May 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Enable pages build
+
 Sat 01 May 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Add runner-% in Makefile
 	* Remove .tool directory
