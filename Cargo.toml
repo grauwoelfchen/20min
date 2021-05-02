@@ -1,12 +1,35 @@
 [package]
 name = "twenty-minutes"
+description = """\
+A command line working timer. \
+"""
 version = "0.0.1"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
-description = "A command line working timer"
-repository = "https://gitlab.com/grauwoelfchen/20min"
-keywords = []
-license = "Apache-2.0"
 edition = "2018"
+homepage = "https://gitlab.com/grauwoelfchen/20min"
+readme = "README.rst"
+keywords = []
+categories = [
+  "command-line-utilities",
+]
+documentation = "https://20min.yasha.rs"
+repository = "https://gitlab.com/grauwoelfchen/20min"
+license = "Apache-2.0"
+
+exclude = [
+  ".git",
+  ".github",
+  ".cargo-husky",
+  ".cache",
+  "Makefile",
+  "rust-toolchain",
+  ".env",
+  ".env.ci.sample",
+  ".gitignore",
+  ".clippy.toml",
+  ".rustfmt.toml",
+  ".gitlab-ci.yml",
+]
 
 [lib]
 name = "twenty_minutes"
