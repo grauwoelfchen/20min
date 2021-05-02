@@ -58,7 +58,7 @@ test: test\:lib ## Same as test:lib
 
 # coverage
 coverage\:bin: ## Generate a coverage report of tests for binary [alias: cov:bin]
-	set -uo pipefail; \
+	@set -uo pipefail; \
 	dir="$$(pwd)"; \
 	target_dir="$${dir}/target/coverage/bin"; \
 	cargo test --bin $(BINARY) --no-run --target-dir=$${target_dir}; \
@@ -77,7 +77,7 @@ cov\:bin: coverage\:bin
 .PHONY: cov\:bin
 
 coverage\:lib: ## Generate a coverage report of tests for library [alias: cov:lib]
-	set -uo pipefail; \
+	@set -uo pipefail; \
 	dir="$$(pwd)"; \
 	target_dir="$${dir}/target/coverage/lib"; \
 	cargo test --lib --no-run --target-dir=$${target_dir}; \
@@ -99,7 +99,7 @@ cov\:lib: coverage\:lib
 # e2e requires also an actual application binary of 20min under the
 # target/debug/deps directory.
 coverage\:e2e: ## Generate a coverage report of e2e tests [alias: cov:e2e]
-	set -uo pipefail; \
+	@set -uo pipefail; \
 	dir="$$(pwd)"; \
 	target_dir="$${dir}/target/coverage/e2e"; \
 	export CARGO_TARGET_DIR=$${target_dir}; \
@@ -119,7 +119,7 @@ cov\:e2e: coverage\:e2e
 .PHONY: cov\:e2e
 
 coverage\:all: coverage\:lib coverage\:bin coverage\:e2e ## Generated merged coverage report of all tests
-	set -uo pipefail; \
+	@set -uo pipefail; \
 	dir="$$(pwd)"; \
 	output_dir="$${dir}/target/coverage"; \
 	kcov --merge $${output_dir} $$output_dir/lib $$output_dir/bin $$output_dir/e2e; \
