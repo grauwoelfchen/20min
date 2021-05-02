@@ -90,7 +90,7 @@ coverage\:lib: ## Generate a coverage report of tests for library [alias: cov:li
 	grep 'index.html' $$target_dir/index.js* | \
 		grep --only-matching --extended-regexp \
 		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
-.PHONY: coverage\:unit
+.PHONY: coverage\:lib
 
 cov\:lib: coverage\:lib
 .PHONY: cov\:lib
@@ -160,19 +160,22 @@ clean: ## Clean up
 	@cargo clean
 .PHONY: clean
 
+# NOTE:
+# This depends on environment variables from .env.ci, and requires
+# the gitlab-runner command.
 runner-%: ## Run a CI job on local (on Docker)
-	set -uo pipefail; \
+	@set -uo pipefail; \
 	job=$(subst runner-,,$@); \
 	opt=""; \
 	while read line; do \
-	  opt+=" --env $$(echo $$line | sed -E 's/^export //')"; \
+		opt+=" --env $$(echo $$line | sed -E 's/^export //')"; \
 	done < .env.ci; \
 	gitlab-runner exec docker \
-	  --executor docker \
-	  --cache-dir /cache \
-	  --docker-volumes $$(pwd)/.cache/gitlab-runner:/cache \
-	  --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
-	  $${opt} $${job}
+		--executor docker \
+		--cache-dir /cache \
+		--docker-volumes $$(pwd)/.cache/gitlab-runner:/cache \
+		--docker-volumes /var/run/docker.sock:/var/run/docker.sock \
+		$${opt} $${job}
 .PHONY: runner
 
 help: ## Display this message
@@ -183,7 +186,7 @@ help: ## Display this message
 		sed --expression='s/\( [0-9a-z\:\\ ]*\) #/ #/' | \
 		tr --delete \\\\ | \
 		awk 'BEGIN {FS = ": ## "}; \
-		  {printf "\033[38;05;222m%-14s\033[0m %s\n", $$1, $$2}' | \
+			{printf "\033[38;05;222m%-14s\033[0m %s\n", $$1, $$2}' | \
 		sort
 .PHONY: help
 
