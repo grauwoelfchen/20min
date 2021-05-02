@@ -19,7 +19,7 @@
 
    <del>News von jetzt!</del>
 
-``20min`` is a command line working timer.
+``20min`` (twenty-minutes) is a command line working timer.
 
 Install
 -------
@@ -65,8 +65,6 @@ Check ``make help``
 Test
 -----
 
-See ``rust-lang/cargo#1924``
-
 .. code:: zsh
 
    % make test
@@ -80,7 +78,7 @@ License
 .. code:: text
 
    20min
-   Copyright 2018-2020 Yasuhiro Яша Asaka
+   Copyright 2018-2021 Yasuhiro Яша Asaka
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
