@@ -59,7 +59,7 @@ coverage:
 
 build:
   stage: build
-  image: grauwoelfchen/rust:stable
+  image: registry.gitlab.com/grauwoelfchen/portolan/rust:stable
   before_script:
     - rustc --version
     - cargo --version
