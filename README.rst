@@ -7,6 +7,12 @@
 .. image:: https://gitlab.com/grauwoelfchen/20min/badges/trunk/coverage.svg
    :target: https://gitlab.com/grauwoelfchen/20min/commits/trunk
 
+.. image:: https://img.shields.io/crates/v/twenty-minutes?label=crates&style=flat
+   :target: https://crates.io/crates/twenty-minutes
+
+.. image:: https://docs.rs/twenty-minutes/badge.svg
+   :target: https://docs.rs/crate/twenty-minutes
+
 |
 
 .. raw:: html
