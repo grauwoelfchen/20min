@@ -160,6 +160,18 @@ clean: ## Clean up
 	@cargo clean
 .PHONY: clean
 
+package:  ## Create package
+	@cargo package
+.PHONY: package
+
+publish:  ## Publish package
+	@cargo publish
+.PHONY: publish
+
+install:  ## Install a debug target into the directory same with cargo
+	@cargo install --debug --path . --force
+.PHONY: install
+
 # NOTE:
 # This depends on environment variables from .env.ci, and requires
 # the gitlab-runner command.
