@@ -46,6 +46,9 @@ path = "test/test.rs"
 [profile.release]
 panic = "abort"
 
+[badges]
+gitlab = { repository = "grauwoelfchen/20min", branch = "trunk" }
+
 [dependencies]
 structopt = { version = "0.2.18", default-features = false }
 
