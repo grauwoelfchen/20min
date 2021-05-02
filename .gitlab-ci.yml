@@ -59,7 +59,7 @@ coverage:
 
 build:
   stage: build
-  image: grauwoelfchen/rust:latest
+  image: grauwoelfchen/rust:stable
   before_script:
     - rustc --version
     - cargo --version
@@ -73,7 +73,7 @@ build:
 
 pages:
   stage: pages
-  image: grauwoelfchen/rust:latest
+  image: grauwoelfchen/rust:stable
   before_script:
     - rustc --version
     - cargo --version
