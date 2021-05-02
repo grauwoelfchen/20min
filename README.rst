@@ -15,6 +15,13 @@
 
 ``20min`` is a command line working timer.
 
+Install
+-------
+
+.. code:: zsh
+
+   % cargo install twenty-minutes
+
 
 Usage
 -----
