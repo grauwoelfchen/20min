@@ -13,7 +13,7 @@
 
    <del>News von jetzt!</del>
 
-This is simple working timer.
+``20min`` is a command line working timer.
 
 
 Usage

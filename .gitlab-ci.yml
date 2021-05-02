@@ -53,9 +53,9 @@ coverage:
   script:
     - mkdir -p .git/hooks
     - make clean
-    - make coverage
+    - make coverage:all
   after_script:
-    - cat target/coverage-0/index.json
+    - cat target/coverage/index.json
 
 build:
   stage: build

@@ -24,14 +24,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cli-20min"
-version = "0.0.1"
-dependencies = [
- "cargo-husky",
- "structopt",
-]
-
-[[package]]
 name = "heck"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -98,6 +90,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "307686869c93e71f94da64286f9a9524c0f308a9e1c87a583de8e9c9039ad3f6"
 dependencies = [
  "unicode-width",
+]
+
+[[package]]
+name = "twenty-minutes"
+version = "0.0.1"
+dependencies = [
+ "cargo-husky",
+ "structopt",
 ]
 
 [[package]]

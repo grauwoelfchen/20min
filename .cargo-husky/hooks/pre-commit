@@ -6,6 +6,5 @@ set -ex
 echo '+make verify:all'
 make verify:all
 
-echo '+make test:unit'
-make test:unit
-
+echo '+make test:lib'
+make test:lib

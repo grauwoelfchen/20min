@@ -1,12 +1,16 @@
-PACKAGE = cli-20min
+PACKAGE = twenty-minutes
+MODULE = twenty_minutes
 BINARY = 20min
 
 # verify
-verify\:check:  ## Check rust syntax
+verify\:check: ## Check rust syntax [alias: check]
 	@cargo check --all -v
 .PHONY: verify\:check
 
-verify\:format:  ## Check format without changes [alias: verify:fmt, fmt]
+check: verify\:check
+.PHONY: check
+
+verify\:format: ## Check format without changes [alias: verify:fmt, fmt]
 	@cargo fmt --all -- --check
 .PHONY: format
 
@@ -19,69 +23,94 @@ format: verify\:format
 fmt: verify\:format
 .PHONY: fmt
 
-verify\:lint:  ## Check code style using clippy [alias: lint]
+verify\:lint: ## Check code style using clippy [alias: lint]
 	@cargo clippy --all-targets
 .PHONY: verify\:lint
 
 lint: verify\:lint
 .PHONY: lint
 
-verify\:all: verify\:check verify\:format verify\:lint  ## Check by all verify:xxx targets
+verify\:all: verify\:check verify\:format verify\:lint ## Run all verify targets
 .PHONY: verify\:all
 
-verify: verify\:check  ## Same as verify:check
+verify: verify\:check ## Same as verify:check
 .PHONY: verify
 
 # test
-test\:unit:  ## Run only unit tests
+test\:bin: ## Run only unit tests for binary (20min)
 	@cargo test --bin $(BINARY)
-.PHONY: test\:unit
+.PHONY: test\:bin
 
-test\:e2e:  ## Run e2e tests only
+test\:lib: ## Run only unit tests for library (twenty_minutes)
+	@cargo test --lib
+.PHONY: test\:lib
+
+test\:e2e: ## Run e2e tests
 	@cargo test --test e2e
 .PHONY: test\:e2e
 
-test\:all:  ## Run all test targets [alias test]
+test\:all: ## Run all test targets
 	@cargo test --tests
 .PHONY: test\:all
 
-test: test\:all  ## Same as test:all
+test: test\:lib ## Same as test:lib
 .PHONY: test
 
 # coverage
-coverage\:unit:  ## Generate a coverage report of unit tests [alias: cov:unit]
-	@cargo test --bin $(BINARY) --no-run
+coverage\:bin: ## Generate a coverage report of tests for binary [alias: cov:bin]
 	set -uo pipefail; \
 	dir="$$(pwd)"; \
-	output_dir="$${dir}/target/coverage"; \
-	target_dir="$${dir}/target/debug/deps"; \
-	result=($${output_dir}/index.js*); \
+	target_dir="$${dir}/target/coverage/bin"; \
+	cargo test --bin $(BINARY) --no-run --target-dir=$${target_dir}; \
+	result=($${target_dir}/index.js*); \
 	if [ -f $${result}[0] ]; then \
-		rm "$${output_dir}/index.js*"; \
+		rm "$${target_dir}/index.js*"; \
 	fi; \
-	file=($$target_dir/$(BINARY)-*); \
-	kcov --verify --include-path=$$dir/src $$output_dir $${file[0]}; \
-	grep 'index.html' $$output_dir/index.js* | \
+	file=($$target_dir/debug/deps/$(BINARY)-*); \
+	kcov --verify --include-path=$$dir/src $$target_dir $${file[0]}; \
+	grep 'index.html' $$target_dir/index.js* | \
+		grep --only-matching --extended-regexp \
+		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
+.PHONY: coverage\:bin
+
+cov\:bin: coverage\:bin
+.PHONY: cov\:bin
+
+coverage\:lib: ## Generate a coverage report of tests for library [alias: cov:lib]
+	set -uo pipefail; \
+	dir="$$(pwd)"; \
+	target_dir="$${dir}/target/coverage/lib"; \
+	cargo test --lib --no-run --target-dir=$${target_dir}; \
+	result=($${target_dir}/index.js*); \
+	if [ -f $${result}[0] ]; then \
+		rm "$${target_dir}/index.js*"; \
+	fi; \
+	file=($$target_dir/debug/deps/$(MODULE)-*); \
+	kcov --verify --include-path=$$dir/src $$target_dir $${file[0]}; \
+	grep 'index.html' $$target_dir/index.js* | \
 		grep --only-matching --extended-regexp \
 		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage\:unit
 
-cov\:unit: coverage\:unit
-.PHONY: cov\:unit
+cov\:lib: coverage\:lib
+.PHONY: cov\:lib
 
-coverage\:e2e:  ## Generate a coverage report of e2e tests [alias: cov:e2e]
-	@cargo test --test e2e --no-run
+# NOTE:
+# e2e requires also an actual application binary of 20min under the
+# target/debug/deps directory.
+coverage\:e2e: ## Generate a coverage report of e2e tests [alias: cov:e2e]
 	set -uo pipefail; \
 	dir="$$(pwd)"; \
-	output_dir="$${dir}/target/coverage"; \
-	target_dir="$${dir}/target/debug/deps"; \
-	result=($${output_dir}/index.js*); \
+	target_dir="$${dir}/target/coverage/e2e"; \
+	export CARGO_TARGET_DIR=$${target_dir}; \
+	cargo test --test e2e --no-run --target-dir=$${target_dir}; \
+	result=($${target_dir}/index.js*); \
 	if [ -f $${result}[0] ]; then \
-		rm "$${output_dir}/index.js*"; \
+		rm "$${target_dir}/index.js*"; \
 	fi; \
-	file=($$target_dir/e2e-*); \
-	kcov --verify --include-path=$$dir/src $$output_dir $${file[0]}; \
-	grep 'index.html' $$output_dir/index.js* | \
+	file=($$target_dir/debug/deps/e2e-*); \
+	kcov --verify --include-path=$$dir/src $$target_dir $${file[0]}; \
+	grep 'index.html' $$target_dir/index.js* | \
 		grep --only-matching --extended-regexp \
 		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage\:e2e
@@ -89,34 +118,24 @@ coverage\:e2e:  ## Generate a coverage report of e2e tests [alias: cov:e2e]
 cov\:e2e: coverage\:e2e
 .PHONY: cov\:e2e
 
-# coverage
-coverage:  ## Generate merged coverage report of all tests [alias: cov]
-	@cargo test --all-targets --no-run
+coverage\:all: coverage\:lib coverage\:bin coverage\:e2e ## Generated merged coverage report of all tests
 	set -uo pipefail; \
 	dir="$$(pwd)"; \
 	output_dir="$${dir}/target/coverage"; \
-	target_dir="$${dir}/target/debug/deps"; \
-	result=($${output_dir}/index.js*); \
-	if [ -f $${result}[0] ]; then \
-		rm "$${output_dir}/index.js*"; \
-	fi; \
-	i=0; \
-	for file in $$(ls $$target_dir/{$(BINARY),e2e}-* | \
-		grep --invert-match '\.d$$'); do \
-		kcov --verify --include-path=$$dir/src $$output_dir-$$i $$file; \
-		i=$$((i+1)); \
-	done; \
-	kcov --merge $$output_dir-$\*; \
-	grep '\[merged\]' $$output_dir-0/index.js* | \
+	kcov --merge $${output_dir} $$output_dir/lib $$output_dir/bin $$output_dir/e2e; \
+	grep '\[merged\]' $$output_dir/index.js* | \
 		grep --only-matching --extended-regexp \
 		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
+.PHONY: coverage\:all
+
+coverage: coverage\:lib ## Same as coverage:lib [alias: cov]
 .PHONY: coverage
 
 cov: coverage
 .PHONY: cov
 
 # documentation
-document:  ## Generate documentation files [alias: doc]
+document: ## Generate documentation files [alias: doc]
 	cargo rustdoc --package $(PACKAGE)
 .PHONY: document
 
@@ -125,23 +144,23 @@ doc: document
 # }}}
 
 # build
-build\:debug:  ## Create debug build
+build\:debug: ## Create debug build
 	cargo build
 .PHONY: build\:debug
 
-build\:release:  ## Create release build
+build\:release: ## Create release build
 	cargo build --release
 .PHONY: build\:release
 
-build: build\:debug  ## Same as build:debug
+build: build\:debug ## Same as build:debug
 .PHONY: build
 
 # utility
-clean:  ## Clean up
+clean: ## Clean up
 	@cargo clean
 .PHONY: clean
 
-runner-%:  ## Run a CI job on local (on Docker)
+runner-%: ## Run a CI job on local (on Docker)
 	set -uo pipefail; \
 	job=$(subst runner-,,$@); \
 	opt=""; \
@@ -156,13 +175,14 @@ runner-%:  ## Run a CI job on local (on Docker)
 	  $${opt} $${job}
 .PHONY: runner
 
-help:  ## Display this message
+help: ## Display this message
 	@set -uo pipefail; \
-	grep --extended-regexp '^[0-9a-z\%\:\\\-]+:  ## ' \
+	grep --extended-regexp '^[0-9a-z\%\:\\\-\ ]+: ' \
 		$(firstword $(MAKEFILE_LIST)) | \
-		sed --expression='s/\(\s|\(\s[0-9a-z\:\\]*\)*\)  /  /' | \
+		grep --extended-regexp ' ## ' | \
+		sed --expression='s/\( [0-9a-z\:\\ ]*\) #/ #/' | \
 		tr --delete \\\\ | \
-		awk 'BEGIN {FS = ":  ## "}; \
+		awk 'BEGIN {FS = ": ## "}; \
 		  {printf "\033[38;05;222m%-14s\033[0m %s\n", $$1, $$2}' | \
 		sort
 .PHONY: help

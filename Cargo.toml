@@ -1,11 +1,16 @@
 [package]
-name = "cli-20min"
+name = "twenty-minutes"
 version = "0.0.1"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
 description = "A command line working timer"
 repository = "https://gitlab.com/grauwoelfchen/20min"
 keywords = []
 license = "Apache-2.0"
+edition = "2018"
+
+[lib]
+name = "twenty_minutes"
+path = "src/lib.rs"
 
 [[bin]]
 name = "20min"
