@@ -192,10 +192,10 @@ runner-%: ## Run a CI job on local (on Docker)
 
 help: ## Display this message
 	@set -uo pipefail; \
-	grep --extended-regexp '^[0-9a-z\%\:\\\-\ ]+: ' \
+	grep --extended-regexp '^[-_0-9a-z\%\:\\ ]+: ' \
 		$(firstword $(MAKEFILE_LIST)) | \
 		grep --extended-regexp ' ## ' | \
-		sed --expression='s/\( [0-9a-z\:\\ ]*\) #/ #/' | \
+		sed --expression='s/\( [-_0-9a-z\%\:\\ ]*\) #/ #/' | \
 		tr --delete \\\\ | \
 		awk 'BEGIN {FS = ": ## "}; \
 			{printf "\033[38;05;222m%-14s\033[0m %s\n", $$1, $$2}' | \
