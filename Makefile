@@ -33,7 +33,7 @@ lint: verify\:lint
 verify\:all: verify\:check verify\:format verify\:lint ## Run all verify targets
 .PHONY: verify\:all
 
-verify: verify\:check ## Same as verify:check
+verify: verify\:check ## Synonym for verify:check
 .PHONY: verify
 
 # test
@@ -53,7 +53,7 @@ test\:all: ## Run all test targets
 	@cargo test --tests
 .PHONY: test\:all
 
-test: test\:lib ## Same as test:lib
+test: test\:lib ## Synonym of test:lib
 .PHONY: test
 
 # coverage
@@ -128,7 +128,7 @@ coverage\:all: coverage\:lib coverage\:bin coverage\:e2e ## Generated merged cov
 		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage\:all
 
-coverage: coverage\:lib ## Same as coverage:lib [alias: cov]
+coverage: coverage\:lib ## Synonym of coverage:lib [alias: cov]
 .PHONY: coverage
 
 cov: coverage
@@ -151,7 +151,7 @@ build\:release: ## Create release build
 	cargo build --release
 .PHONY: build\:release
 
-build: build\:debug ## Same as build:debug
+build: build\:debug ## Synonym of build:debug
 .PHONY: build
 
 # utility
@@ -171,9 +171,6 @@ install:  ## Install a debug target into the directory same with cargo
 	@cargo install --debug --path . --force
 .PHONY: install
 
-# NOTE:
-# This depends on environment variables from .env.ci, and requires
-# the gitlab-runner command.
 runner-%: ## Run a CI job on local (on Docker)
 	@set -uo pipefail; \
 	job=$(subst runner-,,$@); \
