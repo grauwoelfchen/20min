@@ -141,7 +141,6 @@ document: ## Generate documentation files [alias: doc]
 
 doc: document
 .PHONY: doc
-# }}}
 
 # build
 build\:debug: ## Create debug build
