@@ -9,6 +9,16 @@ stages:
   except:
     - tags
 
+check:
+  stage: verify
+  <<: *vet-tools
+  before_script:
+    - rustc --version
+    - cargo --version
+    - mkdir -p .git/hooks
+  script:
+    - make verify:check
+
 format:
   stage: verify
   <<: *vet-tools
@@ -16,8 +26,8 @@ format:
     - rustc --version
     - cargo --version
     - cargo fmt --version
-  script:
     - mkdir -p .git/hooks
+  script:
     - make verify:format
 
 lint:
@@ -27,8 +37,8 @@ lint:
     - rustc --version
     - cargo --version
     - cargo clippy --version
-  script:
     - mkdir -p .git/hooks
+  script:
     - make verify:lint
 
 test:
@@ -38,8 +48,8 @@ test:
     - rustc --version
     - cargo --version
     - kcov --version
-  script:
     - mkdir -p .git/hooks
+  script:
     - make test:all
 
 coverage:
@@ -50,8 +60,8 @@ coverage:
     - rustc --version
     - cargo --version
     - kcov --version
-  script:
     - mkdir -p .git/hooks
+  script:
     - make clean
     - make coverage:all
   after_script:
@@ -63,8 +73,8 @@ build:
   before_script:
     - rustc --version
     - cargo --version
-  script:
     - mkdir -p .git/hooks
+  script:
     - make build
   cache:
     untracked: true
@@ -88,4 +98,5 @@ pages:
     paths:
       - public
   only:
+    - tags
     - trunk
