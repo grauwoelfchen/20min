@@ -118,7 +118,7 @@ coverage\:e2e: ## Generate a coverage report of e2e tests [alias: cov:e2e]
 cov\:e2e: coverage\:e2e
 .PHONY: cov\:e2e
 
-coverage\:all: coverage\:lib coverage\:bin coverage\:e2e ## Generated merged coverage report of all tests
+coverage\:all: coverage\:lib coverage\:bin coverage\:e2e ## Generated merged coverage report of all tests [alias cov:all]
 	@set -uo pipefail; \
 	dir="$$(pwd)"; \
 	output_dir="$${dir}/target/coverage"; \
@@ -127,6 +127,9 @@ coverage\:all: coverage\:lib coverage\:bin coverage\:e2e ## Generated merged cov
 		grep --only-matching --extended-regexp \
 		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
 .PHONY: coverage\:all
+
+cov\:all: coverage\:all
+.PHONY: cov\:all
 
 coverage: coverage\:lib ## Synonym of coverage:lib [alias: cov]
 .PHONY: coverage
