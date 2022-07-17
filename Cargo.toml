@@ -50,7 +50,7 @@ panic = "abort"
 gitlab = { repository = "grauwoelfchen/20min", branch = "trunk" }
 
 [dependencies]
-structopt = { version = "0.3.22", default-features = false }
+structopt = { version = "0.3.26", default-features = false }
 
 [dev-dependencies.cargo-husky]
 version = "1"
