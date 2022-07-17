@@ -45,9 +45,9 @@ test\:lib: ## Run only unit tests for library (twenty_minutes)
 	@cargo test --lib
 .PHONY: test\:lib
 
-test\:e2e: ## Run e2e tests
-	@cargo test --test e2e
-.PHONY: test\:e2e
+test\:integration: ## Run integration tests
+	@cargo test --test integration
+.PHONY: test\:integration
 
 test\:all: ## Run all test targets
 	@cargo test --tests
@@ -96,33 +96,33 @@ cov\:lib: coverage\:lib
 .PHONY: cov\:lib
 
 # NOTE:
-# e2e requires also an actual application binary of 20min under the
+# integration requires also an actual application binary of 20min under the
 # target/debug/deps directory.
-coverage\:e2e: ## Generate a coverage report of e2e tests [alias: cov:e2e]
+coverage\:integration: ## Generate a coverage report of integration tests [alias: cov:integration]
 	@set -uo pipefail; \
 	dir="$$(pwd)"; \
-	target_dir="$${dir}/target/coverage/e2e"; \
+	target_dir="$${dir}/target/coverage/integration"; \
 	export CARGO_TARGET_DIR=$${target_dir}; \
-	cargo test --test e2e --no-run --target-dir=$${target_dir}; \
+	cargo test --test integration --no-run --target-dir=$${target_dir}; \
 	result=($${target_dir}/index.js*); \
 	if [ -f $${result}[0] ]; then \
 		rm "$${target_dir}/index.js*"; \
 	fi; \
-	file=($$target_dir/debug/deps/e2e-*); \
+	file=($$target_dir/debug/deps/integration-*); \
 	kcov --verify --include-path=$$dir/src $$target_dir $${file[0]}; \
 	grep 'index.html' $$target_dir/index.js* | \
 		grep --only-matching --extended-regexp \
 		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
-.PHONY: coverage\:e2e
+.PHONY: coverage\:integration
 
-cov\:e2e: coverage\:e2e
-.PHONY: cov\:e2e
+cov\:integration: coverage\:integration
+.PHONY: cov\:integration
 
-coverage\:all: coverage\:lib coverage\:bin coverage\:e2e ## Generated merged coverage report of all tests [alias cov:all]
+coverage\:all: coverage\:lib coverage\:bin coverage\:integration ## Generated merged coverage report of all tests [alias cov:all]
 	@set -uo pipefail; \
 	dir="$$(pwd)"; \
 	output_dir="$${dir}/target/coverage"; \
-	kcov --merge $${output_dir} $$output_dir/lib $$output_dir/bin $$output_dir/e2e; \
+	kcov --merge $${output_dir} $$output_dir/lib $$output_dir/bin $$output_dir/integration; \
 	grep '\[merged\]' $$output_dir/index.js* | \
 		grep --only-matching --extended-regexp \
 		'covered":"([0-9]*\.[0-9]*|[0-9]*)"' | sed -E 's/[a-z\:"]*//g'
