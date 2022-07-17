@@ -1,4 +1,8 @@
 Sun 17 Jul 2022 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	New release
+
+	* Create v0.0.3
+
 	Update edition to 2021
 
 	Refactor integration tests

@@ -3,7 +3,7 @@ name = "twenty-minutes"
 description = """\
 A command line working timer. \
 """
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
 edition = "2021"
 homepage = "https://gitlab.com/grauwoelfchen/20min"
