@@ -45,10 +45,7 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
 /// );
 /// ```
 pub fn split_arg(s: &str) -> Option<Vec<String>> {
-    match parse_pair::<String>(s, ',') {
-        Some((w, r)) => Some(vec![w, r]),
-        None => None,
-    }
+    parse_pair::<String>(s, ',').map(|(w, r)| vec![w, r])
 }
 
 /// Outputs the formatted result.

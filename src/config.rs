@@ -44,26 +44,24 @@ mod config_test {
 
     #[test]
     fn test_config_to_tuple() {
-        let mut c;
-
-        c = Config { params: vec![] };
+        let c = Config { params: vec![] };
         assert_eq!((900, 300), c.to_tuple());
         assert_eq!(c.to_tuple(), c.to_tuple());
 
-        c = Config { params: vec![10] };
+        let c = Config { params: vec![10] };
         assert_eq!((10, 300), c.to_tuple());
 
-        c = Config {
+        let c = Config {
             params: vec![20, 30],
         };
         assert_eq!((20, 30), c.to_tuple());
 
-        c = Config {
+        let c = Config {
             params: vec![305, 45],
         };
         assert_eq!((305, 45), c.to_tuple());
 
-        c = Config {
+        let c = Config {
             params: vec![30, 40, 50],
         };
         let res = panic::catch_unwind(|| c.to_tuple());
